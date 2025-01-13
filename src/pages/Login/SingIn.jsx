@@ -1,16 +1,20 @@
+import Lottie from "lottie-react";
 import GoogleLogin from "../../Shared/GoogleLogin";
-
+import loginImg from '../../assets/Animation - 1736793358121.json'
 
 const SingIn = () => {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <div className="min-h-screen md:p-16 md:gap-16 md:flex items-center justify-center bg-gray-100">
+            <div className="flex-1">
+            <Lottie animationData={loginImg} loop={true} />
+            </div>
+            <div className="bg-white flex-1 p-8 rounded-lg shadow-md w-full max-w-md">
                 <h1 className="text-2xl font-bold mb-6 text-center">
                     Sign In
                 </h1>
                 <form className="space-y-4">
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="email" className="block text-start text-sm font-medium text-gray-700">
                             Email
                         </label>
                         <input
@@ -25,7 +29,7 @@ const SingIn = () => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="password" className="block text-sm font-medium text-start text-gray-700">
                             Password
                         </label>
                         <input

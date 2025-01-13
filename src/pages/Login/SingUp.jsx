@@ -1,11 +1,15 @@
+import Lottie from "lottie-react";
 import GoogleLogin from "../../Shared/GoogleLogin";
+import registerImg from '../../assets/Animation - 1736793165310.json'
 
 const SingUp = () => {
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            
-            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <div className="min-h-screen md:flex items-center md:p-16 md:gap-16 justify-center bg-gray-100">
+            <div className="flex-1">
+            <Lottie animationData={registerImg} loop={true} />
+            </div>
+            <div className="bg-white flex-1 p-8 rounded-lg shadow-md w-full max-w-md">
                 <h1 className="text-2xl font-bold mb-6 text-center">
                     Register Now
                 </h1>
