@@ -1,6 +1,7 @@
 import Lottie from "lottie-react";
 import GoogleLogin from "../../Shared/GoogleLogin";
 import loginImg from '../../assets/Animation - 1736793358121.json'
+import { Link } from "react-router-dom";
 
 const SingIn = () => {
     return (
@@ -67,12 +68,14 @@ const SingIn = () => {
                 </div>
                 <p className="mt-4 text-center text-sm text-gray-600">
                     Dont have an account?
-                    <button
+                   <Link to='/signup'>
+                   <button
                         type="button"
                         className="font-medium ml-1 text-sky-600 hover:text-sky-500"
                     >
                         Register
                     </button>
+                   </Link>
                 </p>
             </div>
         </div>
