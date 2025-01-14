@@ -1,8 +1,10 @@
-import App from '../../App'
+// import App from '../../App'
+import Navbar from '../../Shared/Navbar'
 const Home = () => {
     return (
         <div>
-            <App></App>
+            <Navbar></Navbar>
+            {/* <App></App> */}
         </div>
     );
 };

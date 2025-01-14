@@ -1,8 +1,9 @@
 import { FcGoogle } from 'react-icons/fc';
-import UseAuth from '../hooks/UseAuth';
+import useAuth from '../hooks/UseAuth';
+
 
 const GoogleLogin = () => {
-    const { googleLogin } = UseAuth()
+    const { googleLogin } = useAuth()
     const handelGoogleLogin =  () => {
         googleLogin()
             .then(res => {
