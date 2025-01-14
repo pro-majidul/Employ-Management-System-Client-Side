@@ -1,43 +1,46 @@
-import { FaBriefcase, FaCalendar, FaChartBar, FaClipboardList, FaUserSecret } from "react-icons/fa";
-import { FaShield } from "react-icons/fa6";
+
+
+import { FaBalanceScale, FaChalkboardTeacher, FaChartLine, FaMoneyBillAlt, FaRegClock, FaUserTie } from "react-icons/fa";
 
 
 const OurService = () => {
+  
+
     const services = [
         {
-          title: 'Recruitment and Onboarding',
-          description: 'Streamline your hiring process and seamlessly integrate new employees into your organization.',
-          icon: <FaUserSecret className="h-6 w-6 text-blue-500" />
+            title: 'Recruitment & Onboarding',
+            description: 'Streamline your hiring process with an intuitive, automated workflow to integrate new employees effortlessly.',
+            icon: <FaUserTie className="h-8 w-8 text-teal-600 transition duration-300 ease-in-out group-hover:text-teal-800" />
         },
         {
-          title: 'Performance Management',
-          description: 'Set goals, track progress, and provide meaningful feedback to boost employee productivity.',
-          icon: <FaChartBar className="h-6 w-6 text-green-500" />
+            title: 'Performance Tracking & Analytics',
+            description: 'Measure employee success and foster growth with smart performance management and detailed analytics.',
+            icon: <FaChartLine className="h-8 w-8 text-orange-600 transition duration-300 ease-in-out group-hover:text-orange-800" />
         },
         {
-          title: 'Time and Attendance',
-          description: 'Efficiently manage employee schedules, time-off requests, and attendance tracking.',
-          icon: <FaCalendar className="h-6 w-6 text-purple-500" />
+            title: 'Time & Attendance Management',
+            description: 'Accurately track employee hours, schedules, and attendance with minimal effort, promoting transparency.',
+            icon: <FaRegClock className="h-8 w-8 text-purple-600 transition duration-300 ease-in-out group-hover:text-purple-800" />
         },
         {
-          title: 'Payroll Processing',
-          description: 'Ensure accurate and timely payroll processing with our advanced payroll management system.',
-          icon: <FaBriefcase className="h-6 w-6 text-red-500" />
+            title: 'Payroll & Benefits Processing',
+            description: 'Seamlessly process payroll with precision, manage deductions, and ensure compliance with tax regulations.',
+            icon: <FaMoneyBillAlt className="h-8 w-8 text-blue-600 transition duration-300 ease-in-out group-hover:text-blue-800" />
         },
         {
-          title: 'Employee Training',
-          description: 'Develop your workforce with customized training programs and skill development initiatives.',
-          icon: <FaClipboardList className="h-6 w-6 text-yellow-500" />
+            title: 'Employee Development & Training',
+            description: 'Offer personalized development opportunities and training programs to boost skills and employee engagement.',
+            icon: <FaChalkboardTeacher className="h-8 w-8 text-yellow-600 transition duration-300 ease-in-out group-hover:text-yellow-800" />
         },
         {
-          title: 'Compliance Management',
-          description: 'Stay up-to-date with labor laws and regulations to maintain legal compliance.',
-          icon: <FaShield className="h-6 w-6 text-indigo-500" />
+            title: 'Compliance & Legal Risk Management',
+            description: 'Stay updated with changing labor laws and maintain compliance to avoid risks and safeguard your business.',
+            icon: <FaBalanceScale className="h-8 w-8 text-green-600 transition duration-300 ease-in-out group-hover:text-green-800" />
         }
-      ]
+    ];
     return (
         <div className="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-7xl w-full mx-auto">
                 <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
                     Our Services
                 </h2>

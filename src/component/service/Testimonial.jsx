@@ -18,7 +18,7 @@ const Testimonial = () => {
 
 
     return (
-        <section className='bg-white py-12'>
+        <section className=' py-12'>
             <div className='max-w-7xl w-full mx-auto'>
                 <Swiper
                     spaceBetween={30}
@@ -38,8 +38,8 @@ const Testimonial = () => {
 
                         <SwiperSlide key={review.id}>
 
-                            <div className="max-w-3xl w-full mx-auto px-6 lg:px-8">
-                                <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">What People Are Saying</h2>
+                            <div className="max-w-4xl w-full mx-auto px-6 lg:px-8">
+                                <h2 className="text-2xl font-bold text-center text-gray-300 dark:text-gray-400 mb-6">What People Are Saying</h2>
                                 <div className="relative">
                                     {/* Testimonial card */}
                                     <div className="text-center bg-white shadow-md rounded-lg p-6 transition-transform duration-500">

@@ -128,18 +128,21 @@ const Contact = () => {
                             </form>
                         </div>
                     </div>
-                    <div className="bg-white shadow-lg mt-10 rounded-lg overflow-hidden">
-                        <div className="h-64 relative">
-                            <img
-                                src="/placeholder.svg?height=256&width=512"
-                                alt="Map"
-                                className="w-full h-full object-cover"
-                            />
-                            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                                <span className="text-white text-lg font-semibold">Map Placeholder</span>
-                            </div>
+
+                    <div className='mt-5 pt-5'>
+                        <div className="w-full max-h-[400px] md:h-[500px]">
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                frameBorder="0"
+                                style={{ border: '0' }}
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d396613.642486573!2d-100.7159912158745!3d39.04851334987619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited%20States!5e0!3m2!1sen!2sbd!4v1736889661887!5m2!1sen!2sbd"
+                                allowFullScreen
+                                title="Google Map"
+                            ></iframe>
                         </div>
                     </div>
+
                 </main>
             </div>
         </div>
