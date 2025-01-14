@@ -1,10 +1,9 @@
-// import App from '../../App'
-import Navbar from '../../Shared/Navbar'
+
 const Home = () => {
     return (
         <div>
-            <Navbar></Navbar>
-            {/* <App></App> */}
+            <h3>Hello bangladesh</h3>
+
         </div>
     );
 };

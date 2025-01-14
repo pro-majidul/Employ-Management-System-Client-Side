@@ -1,26 +1,31 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Home from '../pages/Home/Home';
 import SingUp from '../pages/Login/SingUp';
-import SingIn from '../pages/Login/SingIn';
+import SignIn from '../pages/Login/SingIn'
+import Main from '../Layouts/Main';
+import Home from '../pages/Home/Home'
+
+
 
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: <Home></Home>,
+    element: <Main></Main>,
     children: [
+      {
+        path: '/',
+        element: <Home></Home>
+      },
       {
         path: '/signup',
         element: <SingUp></SingUp>
       },
       {
         path: '/signin',
-        element: <SingIn></SingIn>
+        element: <SignIn></SignIn>
       }
     ]
   },
-  {
-    path: '/dashboard',
-  }
+
 ]);
 
 export default routes;

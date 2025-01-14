@@ -3,6 +3,7 @@ import useAuth from "../hooks/UseAuth";
 import { useState } from "react";
 import logo from '../assets/logo.png'
 import avatarImg from '../assets/avator.jpg'
+import { Helmet } from "react-helmet-async";
 
 
 const Navbar = () => {
@@ -11,8 +12,11 @@ const Navbar = () => {
 
     return (
         <div className='fixed w-full bg-green-500 top-0 z-10 shadow-sm'>
+            <Helmet>
+                <title>Employee Management || Home</title>
+            </Helmet>
             <div className=' py-2 border-b-[1px]'>
-                <div className='max-w-[2520px] w-full mx-auto xl:px-20 md:px-10 sm:px-2 px-4'>
+                <div className='max-w-7xl w-full mx-auto px-4'>
                     <div className='flex flex-row  items-center justify-between gap-3 md:gap-0'>
                         {/* Logo */}
                         <Link to='/' className="flex items-center gap-1">
@@ -28,7 +32,7 @@ const Navbar = () => {
                             </Link>
                             <Link
                                 to='/contactus'
-                               className='lg:px-4 lg:py-3 ml-2 lg:ml-0 hover:text-green-300 transition font-semibold'
+                                className='lg:px-4 lg:py-3 ml-2 lg:ml-0 hover:text-green-300 transition font-semibold'
                             >
                                 Contact Us
                             </Link>
@@ -40,7 +44,7 @@ const Navbar = () => {
                             </Link>
                             <Link
                                 to='/signup'
-                               className='lg:px-4 lg:py-3 ml-2 lg:ml-0 hover:text-green-300 transition font-semibold'
+                                className='lg:px-4 lg:py-3 ml-2 lg:ml-0 hover:text-green-300 transition font-semibold'
                             >
                                 Sign Up
                             </Link>
@@ -106,7 +110,7 @@ const Navbar = () => {
                                                         Contact Us
                                                     </Link>
                                                     <Link
-                                                        to='/login'
+                                                        to='/signin'
                                                         className='px-4 md:hidden py-3 hover:bg-neutral-100 transition font-semibold'
                                                     >
                                                         Login
