@@ -9,6 +9,7 @@ export const AuthContext = createContext()
 const Provider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true)
+    const [darkMode, setDarkMode] = useState(false);
 
     const googleProvider = new GoogleAuthProvider();
     const googleLogin = async () => {
@@ -69,7 +70,9 @@ const Provider = ({ children }) => {
         userSignIn,
         userProfileUpdate,
         UserSignUp,
-        setLoading
+        setLoading,
+        setDarkMode,
+        darkMode,
     }
 
 

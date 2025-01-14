@@ -1,14 +1,16 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../Shared/Navbar";
 import Footer from "../Shared/Footer";
+import useAuth from "../hooks/UseAuth";
 
 const Main = () => {
+    const { darkMode } = useAuth()
     return (
-        <div>
+        <div className={`${darkMode ? 'bg-black' : ' bg-white text-black'}`}>
             <Navbar></Navbar>
-            <div className="min-h-[calc(100vh-310px)]">
-                <Outlet></Outlet>
-            </div>
+
+            <Outlet></Outlet>
+
             <Footer></Footer>
         </div>
     );
