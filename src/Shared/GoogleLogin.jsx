@@ -1,16 +1,28 @@
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../hooks/UseAuth';
+import usePublicAxios from '../hooks/usePublicAxios';
 
 
 const GoogleLogin = () => {
-    const { googleLogin } = useAuth()
-    const handelGoogleLogin =  () => {
-        googleLogin()
-            .then(res => {
-                console.log(res);
-            }).catch(err => {
-                console.log(err);
-            })
+    const { googleLogin, setLoading } = useAuth()
+    const publicAxios = usePublicAxios()
+
+    const handelGoogleLogin = async () => {
+        setLoading(true)
+        try {
+            const result = await googleLogin()
+           console.log(result.user);
+           const userInfo ={
+            name : result.user.displayName,
+            email : result.user.email,
+            role: 'Employee'
+           }
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false)
+        }
+
 
     }
 

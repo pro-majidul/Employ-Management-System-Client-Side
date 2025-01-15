@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged,
 import { useEffect, useState } from "react";
 import { createContext } from "react";
 import { auth } from "../firebase/firebase.config";
+import usePublicAxios from "../hooks/usePublicAxios";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext()
@@ -10,6 +11,7 @@ const Provider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true)
     const [darkMode, setDarkMode] = useState(false);
+    const publicAxios = usePublicAxios()
 
     const googleProvider = new GoogleAuthProvider();
     const googleLogin = async () => {
@@ -29,28 +31,33 @@ const Provider = ({ children }) => {
 
     const UserSignUp = async (email, password) => {
         setLoading(true);
-        return createUserWithEmailAndPassword(email, password)
+        console.log(email, password)
+        return createUserWithEmailAndPassword(auth, email, password)
     }
 
     const userProfileUpdate = async (name, photo) => {
         setLoading(true);
-        return updateProfile(auth, {
+        return updateProfile(auth.currentUser, {
             displayName: name, photoURL: photo
         })
     }
-
-
-
-
 
     useEffect(() => {
 
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             if (currentUser?.email) {
                 setUser(currentUser)
-                setLoading(false)
+                publicAxios.post('/jwt', { email: currentUser.email })
+                    .then(res => {
+                        if (res.data.token) {
+                            localStorage.setItem('access-token', res.data.token);
+                            setLoading(false)
+                        }
+                    })
+
             } else {
                 setUser(null);
+                localStorage.removeItem('access-token')
                 setLoading(false)
             }
         })

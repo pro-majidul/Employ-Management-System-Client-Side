@@ -1,16 +1,44 @@
 import Lottie from "lottie-react";
 import GoogleLogin from "../../Shared/GoogleLogin";
 import loginImg from '../../assets/Animation - 1736793358121.json'
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import useAuth from "../../hooks/UseAuth";
+import { PiSpinnerLight } from "react-icons/pi";
+import { toast } from "react-toastify";
 
 const SingIn = () => {
+    const { setUser, userSignIn, setLoading, loading } = useAuth()
+    const location = useLocation();
+    const navigate = useNavigate();
+    const redirect = location?.state?.form || '/';
+    console.log('location is ', location, 'pathname is ', redirect)
+
+    const handelLogin = async (e) => {
+        e.preventDefault()
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        try {
+            setLoading(true)
+            const response = await userSignIn(email, password);
+            console.log(response.user)
+            setUser(response.data)
+            navigate(redirect)
+            toast.success('user Login Success')
+        } catch (err) {
+            console.log(err)
+            toast.error(`${err.message}`)
+        } finally {
+            setLoading(false)
+        }
+
+    }
     return (
         <section style={{
             backgroundImage: "url('https://i.ibb.co.com/dbBvzjq/vintage-grunge-blue-concrete-tex.jpg')",
             backgroundRepeat: 'no-repeat',
-            backgroundPosition:'center',
-            backgroundSize:'cover'
+            backgroundPosition: 'center',
+            backgroundSize: 'cover'
         }}>
 
             <div className='max-w-7xl w-full mx-auto px-4'>
@@ -26,7 +54,7 @@ const SingIn = () => {
                         <h1 className="text-2xl font-bold mb-6 text-center">
                             Sign In
                         </h1>
-                        <form className="space-y-4">
+                        <form onSubmit={handelLogin} className="space-y-4">
                             <div>
                                 <label htmlFor="email" className="block text-start text-sm font-medium text-gray-700">
                                     Email
@@ -62,7 +90,7 @@ const SingIn = () => {
                                     type="submit"
                                     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                                 >
-                                    Sign In
+                                    {loading ? <PiSpinnerLight className="text-2xl spin" /> : 'Sign In'}
                                 </button>
                             </div>
                         </form>

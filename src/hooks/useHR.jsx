@@ -1,5 +1,5 @@
 
-const Admin = () => {
+const useHR = () => {
     return (
         <div>
             
@@ -7,4 +7,4 @@ const Admin = () => {
     );
 };
 
-export default Admin;
+export default useHR;

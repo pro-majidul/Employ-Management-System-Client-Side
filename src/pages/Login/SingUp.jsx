@@ -1,19 +1,33 @@
 import Lottie from "lottie-react";
 import GoogleLogin from "../../Shared/GoogleLogin";
 import registerImg from '../../assets/Animation - 1736793165310.json'
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import axios from "axios";
 import { PiSpinnerLight } from "react-icons/pi";
 import { useState } from "react";
+import useAuth from "../../hooks/UseAuth";
+import { toast } from "react-toastify";
+import usePublicAxios from "../../hooks/usePublicAxios";
 
 const SingUp = () => {
     const [loading, setLoading] = useState(false)
+    const { setUser, userProfileUpdate, UserSignUp } = useAuth();
+    const publicAxios = usePublicAxios()
+    const navigate = useNavigate()
+    const location = useLocation();
+    const redirect = location?.state?.form || '/';
+    console.log('location is ', location, 'pathname is ', redirect)
+
 
     const { register, handleSubmit, formState: { errors }, } = useForm()
 
     const onSubmit = async (data) => {
-        console.log(data)
+        // console.log(data)
+        const salary = parseInt(data.salary);
+        if (salary < 0) {
+            return toast.error('Please provide a positive salary number')
+        }
         const imagefile = { image: data.photo[0] }
         setLoading(true)
         try {
@@ -23,11 +37,29 @@ const SingUp = () => {
                 }
             })
             const photo = res.data.data.url;
-            console.log(photo)
 
+            const result = await UserSignUp(data?.email, data?.password);
+            await userProfileUpdate(data?.name, photo);
+            console.log(result)
+
+            const userInfo = {
+                name: data.name,
+                email: data.email,
+                role: data.role,
+                bankAccountNo: parseInt(data.bankAccountNo),
+                salary: parseInt(data.salary),
+                designation: data.designation
+            }
+
+            const response = await publicAxios.post('/users', userInfo)
+            setUser(result.user)
+            navigate(redirect)
+            toast.success('user Login success')
+            console.log(response)
 
         } catch (err) {
             console.log(err)
+            toast.error(`${err.message}`)
 
         } finally {
             setLoading(false)
@@ -47,6 +79,18 @@ const SingUp = () => {
                         Register Now
                     </h1>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                        <div className="space-y-1 text-sm">
+                            <label className="block ">Name</label>
+                            <input
+                                {...register("name", { required: true })}
+
+                                type="text"
+                                name="name"
+                                placeholder="Type here"
+                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                              focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500" />
+                            {errors.name && <span className='text-red-500'>This field is required</span>}
+                        </div>
                         <div >
                             <label htmlFor="email" className="block text-start  text-sm font-medium text-gray-700">
                                 Email
@@ -55,7 +99,7 @@ const SingUp = () => {
                                 type="email"
                                 id="email"
                                 name="email"
-                                {...register("name", { required: true })}
+                                {...register("email", { required: true })}
                                 autoComplete="username"
                                 className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
                                    focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
@@ -71,23 +115,27 @@ const SingUp = () => {
                                 Password
                             </label>
                             <input
+                                id="password"
                                 type="password"
-                                name="password"
-                                {...register("password", { required: true, maxLength: 5, pattern: /^[a-z0-9]+$/ })}
                                 autoComplete="current-password"
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-                                placeholder="password"
-                                required
-                            />
-                            {errors.password?.type === "required" && (
-                                <p className='text-red-500'>Password is required</p>
-                            )}
-                            {errors.password?.type === "maxLength" && (
-                                <p className='text-red-500'>password must less than 6 charecter</p>
-                            )}
+                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                                focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                                placeholder="Enter your bank account number"
 
-                            {errors.password?.type === "pattern" && (
-                                <p className='text-red-500'> dont use any capital letters and special characters</p>
+                                {...register("password", {
+                                    required: "Password is required",
+                                    validate: {
+                                        minLength: value =>
+                                            value.length >= 6 || "Password must be at least 6 characters",
+                                        hasUppercase: value =>
+                                            /[A-Z]/.test(value) || "Password must contain at least one uppercase letter",
+                                        hasSpecialChar: value =>
+                                            /[!@#$%^&*(),.?":{}|<>]/.test(value) || "Password must contain at least one special character"
+                                    }
+                                })}
+                            />
+                            {errors.password && (
+                                <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
                             )}
                         </div>
                         <div >

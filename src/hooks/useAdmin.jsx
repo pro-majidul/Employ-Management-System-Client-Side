@@ -1,5 +1,5 @@
 
-const HR = () => {
+const useAdmin = () => {
     return (
         <div>
             
@@ -7,4 +7,4 @@ const HR = () => {
     );
 };
 
-export default HR;
+export default useAdmin;
