@@ -4,8 +4,11 @@ import useAuth from "../hooks/UseAuth";
 // eslint-disable-next-line react/prop-types
 const Private = ({ children }) => {
     const location = useLocation()
-    console.log(location);
+
+    // console.log(location);
+
     const { user, loading } = useAuth();
+    // console.log('loading', loading, 'user is', user)
     if (loading) {
         return <div className="flex items-center justify-center min-h-screen">
             <span className="loading-spinner"></span>
@@ -15,7 +18,7 @@ const Private = ({ children }) => {
         return children;
     }
 
-    return <Navigate to='/signin' state={{ form: location?.pathname }}></Navigate>
+    return <Navigate to='/signin' state={{ from: location.pathname }} replace></Navigate>
 };
 
 export default Private;

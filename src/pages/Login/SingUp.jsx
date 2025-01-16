@@ -16,7 +16,7 @@ const SingUp = () => {
     const publicAxios = usePublicAxios()
     const navigate = useNavigate()
     const location = useLocation();
-    const redirect = location?.state?.form || '/';
+    const redirect = location?.state?.from || '/';
     console.log('location is ', location, 'pathname is ', redirect)
 
 
@@ -56,6 +56,7 @@ const SingUp = () => {
             navigate(redirect)
             toast.success('user Login success')
             console.log(response)
+            
 
         } catch (err) {
             console.log(err)

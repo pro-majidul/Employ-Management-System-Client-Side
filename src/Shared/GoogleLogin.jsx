@@ -1,22 +1,27 @@
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../hooks/UseAuth';
 import usePublicAxios from '../hooks/usePublicAxios';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const GoogleLogin = () => {
     const { googleLogin, setLoading } = useAuth()
     const publicAxios = usePublicAxios()
+    const location = useLocation();
+    const navigate = useNavigate();
+    const redirect = location.state || '/';
 
     const handelGoogleLogin = async () => {
         setLoading(true)
         try {
             const result = await googleLogin()
-           console.log(result.user);
-           const userInfo ={
-            name : result.user.displayName,
-            email : result.user.email,
-            role: 'Employee'
-           }
+            console.log(result.user);
+            navigate(redirect)
+            const userInfo = {
+                name: result.user.displayName,
+                email: result.user.email,
+                role: 'Employee'
+            }
         } catch (err) {
             console.log(err);
         } finally {
