@@ -67,7 +67,7 @@ const Sidebar = () => {
 
                                 </li>
                                 <li className=' px-4 py-2 hover:bg-slate-300 my-1'>
-                                    <NavLink className={(isActive) => isActive ? 'text-xl text-gray-700 ' : '  text-xl text-black '} to='/progress'>Progress</NavLink>
+                                    <NavLink className={(isActive) => isActive ? 'text-xl text-gray-700 ' : '  text-xl text-black '} to='/dashboard/progress'>Progress</NavLink>
 
                                 </li>
                                 {/* just emloyee */}

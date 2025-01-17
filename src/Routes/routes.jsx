@@ -8,6 +8,8 @@ import Dashboard from '../pages/Dashboard/Dashboard';
 import WorkSheet from '../pages/Dashboard/rightside/WorkSheet';
 import Private from '../private/Private';
 import EmployeeList from '../pages/Dashboard/rightside/HR/EmployeeList';
+import Progress from '../pages/Dashboard/rightside/HR/Progress';
+import EmployeDetails from '../pages/Dashboard/rightside/HR/EmployeDetails';
 
 
 
@@ -48,6 +50,14 @@ const routes = createBrowserRouter([
         path: 'employee-list',
         element: <EmployeeList></EmployeeList>
       },
+      {
+        path: 'progress',
+        element: <Progress></Progress>
+      },
+      {
+        path: 'details/:email', 
+        element: <EmployeDetails></EmployeDetails>
+      }
     ]
   }
 

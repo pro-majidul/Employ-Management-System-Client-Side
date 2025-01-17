@@ -68,7 +68,7 @@ const Provider = ({ children }) => {
         return () => {
             unsubscribe()
         }
-    }, [])
+    }, [publicAxios])
 
 
     const authinfo = {

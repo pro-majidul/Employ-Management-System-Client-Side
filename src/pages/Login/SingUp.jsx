@@ -48,7 +48,8 @@ const SingUp = () => {
                 role: data.role,
                 bankAccountNo: parseInt(data.bankAccountNo),
                 salary: parseInt(data.salary),
-                designation: data.designation
+                designation: data.designation,
+                image: photo
             }
 
             const response = await publicAxios.post('/users', userInfo)
@@ -56,13 +57,13 @@ const SingUp = () => {
             navigate(redirect)
             toast.success('user Login success')
             console.log(response)
-            
+
 
         } catch (err) {
             console.log(err)
             toast.error(`${err.message}`)
 
-        } 
+        }
         // finally {
         //     setLoading(false)
         // }

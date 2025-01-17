@@ -1,33 +1,38 @@
 import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+// import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Link } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
-import useAuth from "../../../../hooks/UseAuth";
+import { RiVerifiedBadgeFill } from "react-icons/ri";
+// import useAuth from "../../../../hooks/UseAuth";
 import useSecureAxios from "../../../../hooks/useSecureAxios";
+import { toast } from "react-toastify";
+import useEmployeData from "../../../../hooks/useEmployeData";
 
 const EmployeeList = () => {
     const [modalOpen, setModalOpen] = useState(false); // Modal state
     const [selectedEmployee, setSelectedEmployee] = useState(null); // Selected employee for payment
-    const queryClient = useQueryClient();
-    const { user, loading } = useAuth();
+    // const queryClient = useQueryClient();
+    // const { user, loading } = useAuth();
     const secureAxios = useSecureAxios();
-
+    const [employees, isLoading, isError, refetch] = useEmployeData()
     // Fetch employee data
-    const { data: employees = [], isLoading, isError, refetch } = useQuery({
-        queryKey: ["all-employee"],
-        enabled: user && !loading,
-        queryFn: async () => {
-            const res = await secureAxios.get("/employee-list");
-            return res.data.map((employee) => ({
-                ...employee,
-                isVerified: employee.isVerified || false,
-            }));
-        },
-        onError: (error) => {
-            console.error("Error fetching employees:", error.message);
-        },
-    });
+    // const { data: employees = [], isLoading, isError, refetch } = useQuery({
+    //     queryKey: ["all-employee"],
+    //     enabled: user && !loading,
+    //     queryFn: async () => {
+    //         const res = await secureAxios.get("/employee-list");
+    //         return res.data.map((employee) => ({
+    //             ...employee,
+    //             isVerified: employee.isVerified || false,
+    //         }));
+    //     },
+
+    //     onError: (error) => {
+    //         console.error("Error fetching employees:", error.message);
+    //     },
+
+    // });
 
     // Toggle verification status
     const toggleVerification = async ({ id, isVerified }) => {
@@ -37,21 +42,29 @@ const EmployeeList = () => {
 
 
     // Handle salary payment
-    //   const handlePayment = useMutation(
-    //     async ({ id, month, year }) => {
-    //       await secureAxios.post("/payroll", {
-    //         employeeId: id,
-    //         month,
-    //         year,
-    //       });
-    //     },
-    //     {
-    //       onSuccess: () => {
-    //         setModalOpen(false);
-    //         queryClient.invalidateQueries(["all-employee"]);
-    //       },
-    //     }
-    //   );
+    const handlePayment = async ({ id, month, year, salary, email }) => {
+        try {
+            const res = await secureAxios.post('/payrole', {
+                employeeId: id,
+                month,
+                year,
+                email,
+                salary
+            });
+            console.log(res.data)
+            if (res.data.insertedId) {
+                refetch()
+                toast.success('payment Success')
+                setModalOpen(false)
+            }
+        } catch (err) {
+            console.log(err.response.data.message)
+            toast.error(`${err.response.data.message}`)
+            setModalOpen(false);
+        }
+
+    }
+
 
     // Define table columns
     const columns = [
@@ -71,7 +84,9 @@ const EmployeeList = () => {
                     className={`${row.original.isVerified ? "text-green-500" : "text-red-500"
                         }`}
                 >
-                    {row.original.isVerified ? "✅" : <RxCross2 className="text-red-500" />}
+                    <span className="text-center block">
+                        {row.original.isVerified ? <RiVerifiedBadgeFill className="text-green-500 hover:text-white text-3xl text-center hover:bg-red-500 rounded-xl" /> : <RxCross2 className="text-white text-3xl text-center hover:bg-green-500 bg-red-500 rounded-xl" />}
+                    </span>
                 </button>
             ),
         },
@@ -101,7 +116,7 @@ const EmployeeList = () => {
             header: "Details",
             cell: ({ row }) => (
                 <Link
-                    to={`/details/${row.original.email}`}
+                    to={`/dashboard/details/${row.original.email}`}
                     className="bg-gray-200 px-3 py-2 rounded hover:bg-gray-300"
                 >
                     Details
@@ -134,7 +149,7 @@ const EmployeeList = () => {
     }
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto overflow-x-scroll p-4">
             <h1 className="text-2xl font-bold mb-4 text-center">Employee List</h1>
             <table className="table-auto w-full border-collapse border border-gray-300">
                 <thead>
@@ -166,9 +181,9 @@ const EmployeeList = () => {
             {/* Payment Modal */}
             {modalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white p-6 rounded shadow-lg">
+                    <div className="bg-white mx-3 p-6 w-full md:max-w-md md:mx-auto rounded shadow-lg">
                         <h2 className="text-xl font-bold">Pay Employee</h2>
-                        <p>
+                        <p className="my-3 text-xl">
                             Salary: <strong>{selectedEmployee.salary}</strong>
                         </p>
                         <form
@@ -176,24 +191,38 @@ const EmployeeList = () => {
                                 e.preventDefault();
                                 const month = e.target.month.value;
                                 const year = e.target.year.value;
-                                handlePayment.mutate({
+                                handlePayment({
                                     id: selectedEmployee._id,
                                     month,
+                                    email: selectedEmployee.email,
                                     year,
+                                    salary: selectedEmployee.salary
                                 });
                             }}
                         >
-                            <label className="block mt-4">
-                                Month:
-                                <input
-                                    type="number"
-                                    name="month"
-                                    required
-                                    min="1"
-                                    max="12"
-                                    className="border rounded w-full p-2 mt-1"
-                                />
-                            </label>
+                            <label className="block text-sm font-medium text-gray-700">Month</label>
+                            <select
+                                name="month"
+                                required
+                                defaultValue='Select a month'
+                                className="mt-1 p-2 border block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 sm:text-sm"
+                            >
+                                <option disabled value="">Select a month</option>
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+
+
                             <label className="block mt-4">
                                 Year:
                                 <input
