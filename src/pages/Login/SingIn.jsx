@@ -8,12 +8,12 @@ import { PiSpinnerLight } from "react-icons/pi";
 import { toast } from "react-toastify";
 
 const SingIn = () => {
-    const {  userSignIn, setLoading, loading } = useAuth()
+    const { userSignIn, setLoading, loading } = useAuth()
     const location = useLocation();
     const navigate = useNavigate();
-    const redirect = location?.state?.from || '/';
-    console.log('location is ', location, 'pathname is ', redirect)
-
+    // const redirect = location?.state?.from || '/';
+    // console.log('location is ', location, 'pathname is ', redirect)
+    console.log(location.state)
     const handelLogin = async (e) => {
         e.preventDefault()
         const email = e.target.email.value;
@@ -22,15 +22,16 @@ const SingIn = () => {
             setLoading(true)
             const response = await userSignIn(email, password);
             console.log(response.user)
-            navigate(redirect)
-
+            // navigate(redirect)
+            navigate(location?.state?.from)
             toast.success('user Login Success')
         } catch (err) {
             console.log(err)
             toast.error(`${err.message}`)
-        } finally {
-            setLoading(false)
-        }
+        } 
+        // finally {
+        //     setLoading(false)
+        // // }
 
     }
     return (

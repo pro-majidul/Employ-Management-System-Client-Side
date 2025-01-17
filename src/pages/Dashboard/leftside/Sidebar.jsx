@@ -38,7 +38,7 @@ const Sidebar = () => {
             {/* sidebar full desktop device */}
             <div>
                 <div
-                    className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${isActive && '-translate-x-full'
+                    className={`z-10  flex flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4  inset-y-0 absolute top-0 transform ${isActive && '-translate-x-full'
                         }  md:translate-x-0  transition duration-200 ease-in-out`}
                 >
                     <div>
@@ -63,7 +63,7 @@ const Sidebar = () => {
 
                                 </li>
                                 <li className=' px-4 py-2 hover:bg-slate-300 my-1'>
-                                    <NavLink className={(isActive) => isActive ? 'text-xl text-gray-700 ' : '  text-xl text-black '} to='/employee-list'>Employee List</NavLink>
+                                    <NavLink className={(isActive) => isActive ? 'text-xl text-gray-700 ' : '  text-xl text-black '} to='/dashboard/employee-list'>Employee List</NavLink>
 
                                 </li>
                                 <li className=' px-4 py-2 hover:bg-slate-300 my-1'>

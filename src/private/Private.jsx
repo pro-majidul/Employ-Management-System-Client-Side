@@ -6,9 +6,10 @@ const Private = ({ children }) => {
     const location = useLocation()
 
     // console.log(location);
-
     const { user, loading } = useAuth();
-    // console.log('loading', loading, 'user is', user)
+    // console.log(loading)
+
+    console.log('loading', loading, 'user is', user)
     if (loading) {
         return <div className="flex items-center justify-center min-h-screen">
             <span className="loading-spinner"></span>

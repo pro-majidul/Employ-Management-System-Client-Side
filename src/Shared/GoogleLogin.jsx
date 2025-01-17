@@ -5,17 +5,18 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const GoogleLogin = () => {
-    const { googleLogin, setLoading } = useAuth()
+    const { googleLogin, setUser, setLoading } = useAuth()
     const publicAxios = usePublicAxios()
     const location = useLocation();
     const navigate = useNavigate();
-    const redirect = location.state || '/';
+    const redirect = location?.state?.from || '/';
 
     const handelGoogleLogin = async () => {
         setLoading(true)
         try {
             const result = await googleLogin()
             console.log(result.user);
+            setUser(result.user)
             navigate(redirect)
             const userInfo = {
                 name: result.user.displayName,

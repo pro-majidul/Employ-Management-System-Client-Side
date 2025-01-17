@@ -62,9 +62,10 @@ const SingUp = () => {
             console.log(err)
             toast.error(`${err.message}`)
 
-        } finally {
-            setLoading(false)
-        }
+        } 
+        // finally {
+        //     setLoading(false)
+        // }
 
 
     }

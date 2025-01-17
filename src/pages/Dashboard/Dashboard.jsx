@@ -8,6 +8,7 @@ const Dashboard = () => {
             {/* left side*/}
             <div>
                 <Sidebar></Sidebar>
+                
             </div>
             {/* right  side */}
             <div className='flex-1  md:ml-64'>
