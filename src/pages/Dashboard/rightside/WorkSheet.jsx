@@ -45,7 +45,7 @@ const WorkSheet = () => {
     e.preventDefault()
     if (!formData.hoursWorked) return toast.error('Please enter hours worked');
 
-    const newTask = { ...formData, id: Date.now(), email: user?.email };
+    const newTask = { ...formData, id: Date.now(), email: user?.email, name: user?.displayName };
     console.log(newTask)
     try {
 

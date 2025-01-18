@@ -39,7 +39,7 @@ const Progress = () => {
     useEffect(() => {
 
         if (allemails.length === 0) {
-            const emails = Array.from(new Set(tasks.map((rec) => rec.email)));
+            const emails = Array.from(new Set(tasks.map((rec) => rec.name)));
             setAllEmails(emails)
             const month = Array.from(new Set(tasks.map((rec) => getMonthYear(rec.date))))
             setAllmonths(month)
@@ -119,6 +119,7 @@ const Progress = () => {
                 <table className="table-auto border-collapse w-full">
                     <thead>
                         <tr className="bg-gray-200">
+                            <th className="border px-4 py-2">Employee Name</th>
                             <th className="border px-4 py-2">Employee Email</th>
                             <th className="border px-4 py-2">Date</th>
                             <th className="border px-4 py-2">Month</th>
@@ -131,6 +132,7 @@ const Progress = () => {
                             const monthYear = getMonthYear(record.date);
                             return (
                                 <tr key={record._id}>
+                                    <td className="border px-4 py-2">{record.name}</td>
                                     <td className="border px-4 py-2">{record.email}</td>
                                     <td className="border px-4 py-2">{new Date(record.date).toLocaleDateString()}</td>
                                     <td className="border px-4 py-2">{monthYear}</td>

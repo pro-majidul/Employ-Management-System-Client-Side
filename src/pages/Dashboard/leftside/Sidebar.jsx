@@ -28,7 +28,7 @@ const Sidebar = () => {
                     <div className='block cursor-pointer p-4 font-bold'>
                         <Link to='/' className="flex items-center gap-1">
                             <img src={logo} alt='logo' className="md:h-[50px] w-[30px] md:w-[50px] h-[30px]" />
-                            <p className="md:text-2xl lg:text-3xl font-medium">Employee Management</p>
+                            <p className="md:text-2xl mb-0 lg:text-3xl font-medium">Employee Management</p>
                         </Link>
                     </div>
                 </div>
@@ -44,7 +44,7 @@ const Sidebar = () => {
             {/* sidebar full desktop device */}
             <div>
                 <div
-                    className={`z-10  flex flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4  inset-y-0 absolute top-0 transform ${isActive && '-translate-x-full'
+                    className={`z-10  flex flex-col min-h-screen justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4  inset-y-0 absolute top-0 transform ${isActive && '-translate-x-full'
                         }  md:translate-x-0  transition duration-200 ease-in-out`}
                 >
                     <div>
@@ -52,7 +52,7 @@ const Sidebar = () => {
                             <div className='w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center mx-auto'>
                                 <Link to='/' className="flex items-center gap-2">
                                     <img src={logo} alt='logo' className="md:h-[40px]  md:w-[40px] " />
-                                    <p className="text-xl font-medium">Employee Management</p>
+                                    <p className="text-xl mb-0 font-medium">Employee Management</p>
                                 </Link>
                             </div>
                         </div>
@@ -91,7 +91,7 @@ const Sidebar = () => {
                         </div>
                     </div>
 
-                    <div>
+                    <div >
                         <hr />
                         {/* 
           <MenuItem

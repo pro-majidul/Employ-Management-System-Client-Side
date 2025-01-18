@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import useSecureAxios from "../../../../hooks/useSecureAxios";
 import { useState } from "react";
 import { getCoreRowModel, useReactTable, flexRender } from "@tanstack/react-table";
@@ -16,6 +16,7 @@ const AllEmployee = () => {
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [newSalary, setNewSalary] = useState(0);
     const [oldSalary, setOldSalary] = useState(0)
+    const [view, setView] = useState('table')
 
     const secureAxios = useSecureAxios();
     // const { data: employees = [], refetch } = useQuery({
@@ -69,6 +70,9 @@ const AllEmployee = () => {
             }
             const res = await secureAxios.patch(`/admin/update-salary/${selectedEmployee._id}`, { newSalary });
             console.log(res.data)
+            if (res.data.modifiedCount > 0) {
+                toast.success('Salary Update SuccessFull')
+            }
             refetch();
             setIsModalOpen(false);
         } catch (error) {
@@ -120,7 +124,7 @@ const AllEmployee = () => {
                         onClick={() => handleFire(row.original._id)}
                     >
                         <FaFire className="text-red-500 text-2xl" />
-                    </button> : 'fired'
+                    </button> : <span className="text-red-600 font-bold">Fired</span>
             ),
         },
         {
@@ -141,40 +145,51 @@ const AllEmployee = () => {
         columns,
         getCoreRowModel: getCoreRowModel(),
     });
-
+    console.log(view)
     return (
         <div className="container mx-auto p-4">
             <h3 className="text-2xl font-bold mb-6 text-center">All Employee List</h3>
-            <div className="overflow-x-auto">
-                <table className="table-auto border-collapse w-full">
-                    <thead>
-                        {table.getHeaderGroups().map((headerGroup) => (
-                            <tr className="bg-gray-200" key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => (
-                                    <th
-                                        key={header.id}
-                                        className="border px-4 py-2"
-                                    >
-                                        {flexRender(header.column.columnDef.header, header.getContext())}
-                                    </th>
-                                ))}
-                            </tr>
-                        ))}
-                    </thead>
-                    <tbody>
-                        {table.getRowModel().rows.map((row) => (
-                            <tr key={row.id} className="border-t hover:bg-gray-50">
-                                {row.getVisibleCells().map((cell) => (
-                                    <td key={cell.id} className="border px-4 py-2">
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
 
+            <div className="w-32 mb-6">
+                <label className="block text-sm font-medium text-gray-700"> Selecet View</label>
+                <select name="view" onClick={(e) => setView(e.target.value)} className="mt-1 p-2 border block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 sm:text-sm">
+                    <option selected value='table'>Table View</option>
+                    <option value='card'>Card View</option>
+                </select>
+            </div>
+            {view == "table" &&
+
+                <div className="overflow-x-auto">
+                    <table className="table-auto border-collapse w-full">
+                        <thead>
+                            {table.getHeaderGroups().map((headerGroup) => (
+                                <tr className="bg-gray-200" key={headerGroup.id}>
+                                    {headerGroup.headers.map((header) => (
+                                        <th
+                                            key={header.id}
+                                            className="border px-4 py-2"
+                                        >
+                                            {flexRender(header.column.columnDef.header, header.getContext())}
+                                        </th>
+                                    ))}
+                                </tr>
+                            ))}
+                        </thead>
+                        <tbody>
+                            {table.getRowModel().rows.map((row) => (
+                                <tr key={row.id} className="border-t hover:bg-gray-50">
+                                    {row.getVisibleCells().map((cell) => (
+                                        <td key={cell.id} className="border px-4 py-2">
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            }
+            {view == 'card' && <AllEmployCardView employees={employees} handleMakeHR={handleMakeHR} handleFire={handleFire} handleUpdateSalary={handleUpdateSalary}></AllEmployCardView>}
             <Modal
                 title="Update Salary"
                 open={isModalOpen}
@@ -192,7 +207,7 @@ const AllEmployee = () => {
                     </Form.Item>
                 </Form>
             </Modal>
-            <AllEmployCardView></AllEmployCardView>
+
         </div>
     );
 };

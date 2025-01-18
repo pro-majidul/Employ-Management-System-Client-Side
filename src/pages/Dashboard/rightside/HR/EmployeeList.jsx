@@ -196,7 +196,8 @@ const EmployeeList = () => {
                                     month,
                                     email: selectedEmployee.email,
                                     year,
-                                    salary: selectedEmployee.salary
+                                    salary: selectedEmployee.salary,
+                                    name: selectedEmployee.name
                                 });
                             }}
                         >

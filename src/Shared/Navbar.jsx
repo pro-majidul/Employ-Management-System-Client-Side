@@ -20,10 +20,16 @@ const Navbar = () => {
                 <div className='max-w-7xl w-full mx-auto px-4'>
                     <div className='flex flex-row  items-center justify-between gap-3 md:gap-0'>
                         {/* Logo */}
-                        <Link to='/' className="flex items-center gap-1">
-                            <img src={logo} alt='logo' className="md:h-[50px] w-[30px] md:w-[50px] h-[30px]" />
-                            <p className="md:text-2xl lg:text-3xl font-medium">Employee Management</p>
-                        </Link>
+
+                        <div>
+                            <Link to='/' className="flex gap-1 items-center justify-center">
+                                <div className="md:h-[50px] w-[30px] md:w-[50px] h-[30px]">
+                                    <img src={logo} alt='logo' className="w-full" />
+                                </div>
+                                <p className="md:text-2xl mb-0  lg:text-3xl font-medium">Employee Management</p>
+                            </Link>
+                        </div>
+
                         <div className="hidden md:block ">
                             <Link
                                 to='/dashboard'
