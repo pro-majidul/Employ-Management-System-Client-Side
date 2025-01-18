@@ -27,7 +27,7 @@ const AllEmployee = () => {
         try {
             const res = await secureAxios.patch(`/admin/make-hr/${id}`);
             if (res.data.modifiedCount > 0) {
-                toast.success('Make HR Success')
+                toast.success('This Employee Now HR')
             }
             console.log(res)
             refetch();
@@ -38,13 +38,17 @@ const AllEmployee = () => {
     };
 
     const handleFire = async (id) => {
-        // try {
-        //     await secureAxios.post(`/admin/fire/${id}`);
-        //     refetch();
-        // } catch (error) {
-        //     console.error("Error firing employee:", error);
-        // }
-        console.log(id)
+        try {
+            const res = await secureAxios.patch(`/admin/fire/${id}`);
+            console.log(res.data)
+            if (res.data.modifiedCount > 0) {
+                toast.success('user fired Successfull')
+            }
+            refetch();
+        } catch (error) {
+            console.error("Error firing employee:", error);
+        }
+      
     };
 
     const handleOpenSalaryModal = (employee) => {
@@ -95,18 +99,19 @@ const AllEmployee = () => {
                     >
                         {row.original._id && '[ ]'}
                     </button>
-                ) ||  <GrStatusGood  className=" text-black text-2xl"/>
+                ) || <GrStatusGood className=" text-black text-2xl" />
         },
         {
             accessorKey: 'fire',
             header: 'Fire',
             cell: ({ row }) => (
-                <button
+                !row.original.isFired ?
+                    <button
 
-                    onClick={() => handleFire(row.original._id)}
-                >
-                    {row.original.isFired ? 'fired' : <FaFire className="text-red-500 text-2xl" />}
-                </button>
+                        onClick={() => handleFire(row.original._id)}
+                    >
+                        <FaFire className="text-red-500 text-2xl" />
+                    </button> : 'fired'
             ),
         },
         {

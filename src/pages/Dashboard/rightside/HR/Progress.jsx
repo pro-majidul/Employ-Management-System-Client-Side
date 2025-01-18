@@ -6,11 +6,11 @@ const Progress = () => {
     const [selectedName, setSelectedName] = useState("");
     const [selectedMonth, setSelectedMonth] = useState("");
     const [totalHours, setTotalHours] = useState(0);
-    const [allemails, setAllEmails] = useState([]);;
+    const [allemails, setAllEmails] = useState([]);
     const [allmonths, setAllmonths] = useState([])
     const SecureAxios = useSecureAxios()
 
-    const { data: tasks = [], refetch } = useQuery({
+    const { data: tasks = [], refetch, isPending } = useQuery({
         queryKey: ['employee-Task', selectedName, selectedMonth],
         queryFn: async () => {
             const res = await SecureAxios.get('/work-sheet', {
@@ -22,7 +22,7 @@ const Progress = () => {
             return res.data;
         }
     });
-    
+
     useEffect(() => {
         const sumHours = tasks.reduce((sum, record) => sum + parseInt(record.hoursWorked, 10), 0);
         setTotalHours(sumHours);
@@ -38,12 +38,14 @@ const Progress = () => {
 
     useEffect(() => {
 
-        const emails = Array.from(new Set(tasks.map((rec) => rec.email)));
-        setAllEmails(emails)
-        const month = Array.from(new Set(tasks.map((rec) => getMonthYear(rec.date))))
-        setAllmonths(month)
-    }, [])
-    // console.log(emails)
+        if (allemails.length === 0) {
+            const emails = Array.from(new Set(tasks.map((rec) => rec.email)));
+            setAllEmails(emails)
+            const month = Array.from(new Set(tasks.map((rec) => getMonthYear(rec.date))))
+            setAllmonths(month)
+        }
+    }, [tasks])
+    console.log(allemails)
     // setAllEmails(emails);
 
 
@@ -54,6 +56,9 @@ const Progress = () => {
     const handelFilterEmail = (e) => {
         setSelectedName(e.target.value);
         refetch()
+    }
+    if (isPending) {
+        return <p> loading ...</p>
     }
     return (
         <div className="container mx-auto p-4">
@@ -68,7 +73,7 @@ const Progress = () => {
                         onChange={(e) => handelFilterEmail(e)}
                         className="border rounded p-2 w-full"
                     >
-                        <option  value="">All Employees</option>
+                        <option value="">All Employees</option>
                         {/* {Array.from(new Set(tasks.map((rec) => rec.email))).map((email) => (
                             <option key={email} value={email}>
                                 {email}

@@ -6,29 +6,37 @@ import { Helmet } from "react-helmet-async";
 import useAuth from "../../hooks/UseAuth";
 import { PiSpinnerLight } from "react-icons/pi";
 import { toast } from "react-toastify";
+import usePublicAxios from "../../hooks/usePublicAxios";
 
 const SingIn = () => {
     const { userSignIn, setLoading, loading } = useAuth()
     const location = useLocation();
     const navigate = useNavigate();
-    // const redirect = location?.state?.from || '/';
+    const publicAxios = usePublicAxios()
+
+    const redirect = location?.state?.from || '/';
     // console.log('location is ', location, 'pathname is ', redirect)
     console.log(location.state)
     const handelLogin = async (e) => {
         e.preventDefault()
         const email = e.target.email.value;
+        console.log(email)
         const password = e.target.password.value;
         try {
             setLoading(true)
-            const response = await userSignIn(email, password);
-            console.log(response.user)
-            // navigate(redirect)
-            navigate(location?.state?.from)
-            toast.success('user Login Success')
+
+            const res = await publicAxios.patch('/isFired', { email: email })
+            if (res.data.modifiedCount > 0) {
+
+                await userSignIn(email, password);
+                toast.success('user Login Success')
+                navigate(redirect)
+            }
+            // navigate(location?.state?.from)
         } catch (err) {
             console.log(err)
-            toast.error(`${err.message}`)
-        } 
+            toast.error(`${err.response.data.message}`)
+        }
         // finally {
         //     setLoading(false)
         // // }
