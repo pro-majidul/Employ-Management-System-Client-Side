@@ -10,6 +10,7 @@ import Private from '../private/Private';
 import EmployeeList from '../pages/Dashboard/rightside/HR/EmployeeList';
 import Progress from '../pages/Dashboard/rightside/HR/Progress';
 import EmployeDetails from '../pages/Dashboard/rightside/HR/EmployeDetails';
+import AllEmployee from '../pages/Dashboard/rightside/Admin/AllEmployee';
 
 
 
@@ -55,8 +56,13 @@ const routes = createBrowserRouter([
         element: <Progress></Progress>
       },
       {
-        path: 'details/:email', 
+        path: 'details/:email',
         element: <EmployeDetails></EmployeDetails>
+      },
+      //Admin
+      {
+        path: 'all-employee-list',
+        element: <AllEmployee></AllEmployee>
       }
     ]
   }

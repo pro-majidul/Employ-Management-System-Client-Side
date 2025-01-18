@@ -4,14 +4,20 @@ import useAuth from "../../../hooks/UseAuth";
 import { useState } from "react";
 import { GrLogout } from "react-icons/gr";
 import logo from '../../../assets/logo.png'
+import { toast } from "react-toastify";
 
 
 const Sidebar = () => {
-    const { user, logOut } = useAuth()
+    const { user, logoutUser } = useAuth()
     const [isActive, setActive] = useState(false)
     //responsive hander 
     const handleToggle = () => {
         setActive(!isActive)
+    }
+    // log out user
+    const handelLogOut = () => {
+        logoutUser()
+        toast.success('user Logout Success')
     }
     return (
         <>
@@ -56,10 +62,10 @@ const Sidebar = () => {
                             <ul className=" list-none">
                                 <li className=' px-4 py-2 hover:bg-slate-300 my-1'>
 
-                                    <NavLink className={(isActive) => isActive ? 'text-xl text-gray-700 ' : '  text-xl text-black '} to='/all-employee-list'>All Employee</NavLink>
+                                    <NavLink className={(isActive) => isActive ? 'text-xl text-gray-700 ' : '  text-xl text-black '} to='/dashboard/all-employee-list'>All Employee</NavLink>
                                 </li>
                                 <li className=' px-4 py-2 hover:bg-slate-300 my-1'>
-                                    <NavLink className={(isActive) => isActive ? 'text-xl text-gray-700 ' : '  text-xl text-black '} to='/payroll'>Pay Role</NavLink>
+                                    <NavLink className={(isActive) => isActive ? 'text-xl text-gray-700 ' : '  text-xl text-black '} to='/dashboard/payroll'>Pay Role</NavLink>
 
                                 </li>
                                 <li className=' px-4 py-2 hover:bg-slate-300 my-1'>
@@ -78,7 +84,7 @@ const Sidebar = () => {
                                     </li>
                                     <li className=' px-4 py-2 hover:bg-slate-300 my-1'>
 
-                                        <NavLink className={(isActive) => isActive ? 'text-xl text-gray-700 ' : '  text-xl text-black '} to='/payment-history'>Payment History</NavLink>
+                                        <NavLink className={(isActive) => isActive ? 'text-xl text-gray-700 ' : '  text-xl text-black '} to='/dashboard/payment-history'>Payment History</NavLink>
                                     </li>
                                 </>}
                             </ul>
@@ -94,7 +100,7 @@ const Sidebar = () => {
             address='/dashboard/profile'
           /> */}
                         <button
-                            onClick={logOut}
+                            onClick={handelLogOut}
                             className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'
                         >
                             <GrLogout className='w-5 h-5' />
