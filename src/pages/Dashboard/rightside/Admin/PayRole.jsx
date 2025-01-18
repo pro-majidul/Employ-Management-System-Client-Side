@@ -11,7 +11,7 @@ const PayRole = () => {
     const [pageSize, setPageSize] = useState(10); // Items per page
 
     // Fetch payment data with pagination
-    const { data: paymentData = [], refetch } = useQuery({
+    const { data: paymentData = { data: [], totalPages: 1 }, refetch } = useQuery({
         queryKey: ['payrole', pageIndex, pageSize],
         queryFn: async () => {
             const res = await SecureAxios.get('/payrole', {
@@ -51,17 +51,18 @@ const PayRole = () => {
         {
             accessorKey: 'paymentDate',
             header: 'Payment Date',
-            cell: ({ row }) => row.original.paymentDate || 'Pending',
+            cell: ({ row }) => row.original.paymentDate || '',
         },
         {
             accessorKey: 'pay',
             header: 'Pay',
             cell: ({ row }) => (
                 <button
-                    className={`px-4 py-2 rounded ${row.original.isPaid
+                    className={`px-4 py-2 rounded ${
+                        row.original.isPaid
                             ? 'bg-gray-400 cursor-not-allowed'
                             : 'bg-green-500 text-white hover:bg-green-600'
-                        }`}
+                    }`}
                     disabled={row.original.isPaid}
                     onClick={() => handlePay(row.original._id)}
                 >
@@ -72,19 +73,14 @@ const PayRole = () => {
     ];
 
     const table = useReactTable({
-        data: paymentData    || [], // Use paginated data
+        data: paymentData.data || [], // Use paginated data
         columns,
-        pageCount: paymentData.totalPages || 1, // Total pages from API
-        state: {
-            pageIndex,
-            pageSize,
-        },
-        onPaginationChange: (updater) => {
-            const newState = typeof updater === 'function' ? updater({ pageIndex, pageSize }) : updater;
-            setPageIndex(newState.pageIndex);
-            setPageSize(newState.pageSize);
-        },
         getCoreRowModel: getCoreRowModel(),
+        state: {
+            pagination: { pageIndex, pageSize },
+        },
+        manualPagination: true, // Handle pagination manually
+        pageCount: paymentData.totalPages, // Total pages from API
     });
 
     return (
@@ -127,12 +123,12 @@ const PayRole = () => {
                     Previous
                 </button>
                 <span>
-                    Page {pageIndex + 1} of {paymentData.totalPages || 1}
+                    Page {pageIndex + 1} of {paymentData.totalPages}
                 </span>
                 <button
                     className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400"
                     onClick={() => setPageIndex((old) => old + 1)}
-                    disabled={pageIndex + 1 >= (paymentData.totalPages || 1)}
+                    disabled={pageIndex + 1 >= paymentData.totalPages}
                 >
                     Next
                 </button>

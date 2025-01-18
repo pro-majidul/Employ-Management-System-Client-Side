@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 const EmployeDetails = () => {
-    const { email } = useParams(); // Slug হিসেবে email নেওয়া
+    const { email } = useParams(); 
     const axiosSecure = useSecureAxios();
 
     // Fetching Employee Data from Backend
