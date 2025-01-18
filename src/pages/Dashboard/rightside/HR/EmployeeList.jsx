@@ -42,14 +42,15 @@ const EmployeeList = () => {
 
 
     // Handle salary payment
-    const handlePayment = async ({ id, month, year, salary, email }) => {
+    const handlePayment = async ({ id, month, year, salary, email,name }) => {
         try {
             const res = await secureAxios.post('/payrole', {
                 employeeId: id,
                 month,
                 year,
                 email,
-                salary
+                salary,
+                name
             });
             console.log(res.data)
             if (res.data.insertedId) {
