@@ -2,10 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import useSecureAxios from '../../../../hooks/useSecureAxios';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { Form, Input, Modal } from 'antd';
 
 const PayRole = () => {
     const SecureAxios = useSecureAxios();
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [paymentInfo, setPaymentInfo] = useState('')
     // Pagination state
     const [pageIndex, setPageIndex] = useState(0); // Current page index
     const [pageSize, setPageSize] = useState(10); // Items per page
@@ -23,15 +25,9 @@ const PayRole = () => {
     });
 
     const handlePay = async (id) => {
-        try {
-            const paymentDate = new Date().toISOString().split('T')[0]; // Current date in YYYY-MM-DD
-            await SecureAxios.post(`/payrole/pay/${id}`, { paymentDate });
-
-            // Refresh the data
-            refetch();
-        } catch (error) {
-            console.error('Error processing payment:', error);
-        }
+        setIsModalOpen(true);
+        setPaymentInfo(id)
+        console.log(id)
     };
 
     const columns = [
@@ -58,13 +54,12 @@ const PayRole = () => {
             header: 'Pay',
             cell: ({ row }) => (
                 <button
-                    className={`px-4 py-2 rounded ${
-                        row.original.isPaid
-                            ? 'bg-gray-400 cursor-not-allowed'
-                            : 'bg-green-500 text-white hover:bg-green-600'
-                    }`}
+                    className={`px-4 py-2 rounded ${row.original.isPaid
+                        ? 'bg-gray-400 cursor-not-allowed'
+                        : 'bg-green-500 text-white hover:bg-green-600'
+                        }`}
                     disabled={row.original.isPaid}
-                    onClick={() => handlePay(row.original._id)}
+                    onClick={() => handlePay(row.original)}
                 >
                     {row.original.isPaid ? 'Paid' : 'Pay'}
                 </button>
@@ -133,6 +128,24 @@ const PayRole = () => {
                     Next
                 </button>
             </div>
+
+            <Modal
+                title={`Total Salary ${paymentInfo.salary}`}
+                open={isModalOpen}
+                // onOk={handleUpdateSalary}
+                onCancel={() => setIsModalOpen(false)}
+                className="responsive-modal"
+            >
+                <Form>
+                    <Form.Item label="New Salary">
+                        <Input
+                            type="number"
+                            // value={newSalary}
+                            onChange={(e) => setNewSalary(e.target.value)}
+                        />
+                    </Form.Item>
+                </Form>
+            </Modal>
         </div>
     );
 };
