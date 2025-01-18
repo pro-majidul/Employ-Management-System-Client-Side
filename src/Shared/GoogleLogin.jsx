@@ -10,7 +10,7 @@ const GoogleLogin = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const redirect = location?.state?.from || '/';
-
+    
     const handelGoogleLogin = async () => {
         setLoading(true)
         try {

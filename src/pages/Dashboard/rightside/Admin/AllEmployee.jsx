@@ -8,20 +8,24 @@ import { FaFire } from "react-icons/fa";
 import { GrDocumentUpdate } from "react-icons/gr";
 import { GrStatusGood } from "react-icons/gr";
 import { toast } from "react-toastify";
+import UseEmployee from "../../../../hooks/UseEmployee";
+import AllEmployCardView from "./AllEmployCardView";
 
 const AllEmployee = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [newSalary, setNewSalary] = useState(0);
+    const [oldSalary, setOldSalary] = useState(0)
 
     const secureAxios = useSecureAxios();
-    const { data: employees = [], refetch } = useQuery({
-        queryKey: ["all-Employees"],
-        queryFn: async () => {
-            const res = await secureAxios.get("/all-employee-list");
-            return res.data;
-        },
-    });
+    // const { data: employees = [], refetch } = useQuery({
+    //     queryKey: ["all-Employees"],
+    //     queryFn: async () => {
+    //         const res = await secureAxios.get("/all-employee-list");
+    //         return res.data;
+    //     },
+    // });
+    const [employees, refetch] = UseEmployee()
 
     const handleMakeHR = async (id) => {
         try {
@@ -48,18 +52,23 @@ const AllEmployee = () => {
         } catch (error) {
             console.error("Error firing employee:", error);
         }
-      
+
     };
 
     const handleOpenSalaryModal = (employee) => {
         setSelectedEmployee(employee);
+        setOldSalary(employee.salary)
         setNewSalary(employee.salary);
         setIsModalOpen(true);
     };
 
     const handleUpdateSalary = async () => {
         try {
-            await secureAxios.patch(`/admin/update-salary/${selectedEmployee._id}`, { newSalary });
+            if (newSalary <= oldSalary) {
+                return toast.error('can not decrease salary Only Increase')
+            }
+            const res = await secureAxios.patch(`/admin/update-salary/${selectedEmployee._id}`, { newSalary });
+            console.log(res.data)
             refetch();
             setIsModalOpen(false);
         } catch (error) {
@@ -183,6 +192,7 @@ const AllEmployee = () => {
                     </Form.Item>
                 </Form>
             </Modal>
+            <AllEmployCardView></AllEmployCardView>
         </div>
     );
 };
