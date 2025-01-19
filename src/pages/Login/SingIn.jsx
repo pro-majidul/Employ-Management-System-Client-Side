@@ -34,8 +34,16 @@ const SingIn = () => {
             }
             // navigate(location?.state?.from)
         } catch (err) {
-            toast.error(err.code)
-            toast.error(`${err.response.data.message}`)
+            console.log(err)
+            if (err.status === 404) {
+                toast.error(`${err.response.data.message}`)
+            } else {
+
+                toast.error(`${err.code}`)
+            }
+            // toast.error(err.code)
+            // console.log(err)
+            // toast.error(`${err.response.data.message}`)
             // setLoading(false)
         }
         // finally {

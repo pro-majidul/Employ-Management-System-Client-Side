@@ -108,6 +108,12 @@ const Navbar = () => {
                                             {user ? (
                                                 <>
                                                     <Link
+                                                        to='/'
+                                                        className='px-4 py-3 hover:bg-neutral-100 transition font-semibold md:hidden'
+                                                    >
+                                                        Home
+                                                    </Link>
+                                                    <Link
                                                         to='/dashboard'
                                                         className='px-4 py-3 hover:bg-neutral-100 transition font-semibold md:hidden'
                                                     >
@@ -129,6 +135,12 @@ const Navbar = () => {
                                                 </>
                                             ) : (
                                                 <>
+                                                    <Link
+                                                        to='/'
+                                                        className='px-4 md:hidden py-3 hover:bg-neutral-100 transition font-semibold'
+                                                    >
+                                                        Home
+                                                    </Link>
                                                     <Link
                                                         to='/dashboard'
                                                         className='px-4 md:hidden py-3 hover:bg-neutral-100 transition font-semibold'

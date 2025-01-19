@@ -39,9 +39,7 @@ const GoogleLogin = () => {
             if (err.status === 404) {
                 logoutUser()
                 setUser(null)
-            }
-            if (err.response.data.message) {
-                toast.success(`${err.response.data.message}`)
+                toast.error(`${err.response.data.message}`)
             } else {
 
                 toast.error(`${err.code}`)
