@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 
 const GoogleLogin = () => {
-    const { googleLogin, setUser, setLoading } = useAuth()
+    const { googleLogin, setUser, logoutUser, setLoading } = useAuth()
     const publicAxios = usePublicAxios()
     const location = useLocation();
     const navigate = useNavigate();
@@ -31,10 +31,15 @@ const GoogleLogin = () => {
             }
 
             const res = await publicAxios.put('/users', userInfo);
+            console.log(res, 'line 34')
             console.log(res.data)
             toast.success('user login SuccessFull')
         } catch (err) {
-            // console.log(err.respose.data);
+            console.log(err);
+            if (err.status === 404) {
+                logoutUser()
+                setUser(null)
+            }
             if (err.response.data.message) {
                 toast.success(`${err.response.data.message}`)
             } else {

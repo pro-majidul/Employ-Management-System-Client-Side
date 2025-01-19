@@ -10,7 +10,7 @@ const AllEmployCardView = ({employees,handleOpenSalaryModal,handleFire,handleMak
                 {employees.map((employee) => (
                     <div
                         key={employee._id}
-                        className="p-4 border rounded-lg shadow-md bg-white hover:shadow-lg transition-shadow duration-200 flex flex-col h-full"
+                        className="p-4 border rounded-lg  bg-white hover:shadow-lg transition-shadow duration-200 flex flex-col h-full"
                     >
                         <div className="mb-4">
                             <h4 className="text-lg font-bold">{employee.name}</h4>

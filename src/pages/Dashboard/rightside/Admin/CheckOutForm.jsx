@@ -48,7 +48,7 @@ const CheckOutForm = ({ paymentInfo, setIsModalOpen }) => {
                         // disabled={!stripe || !clientSecret || processing}
                         type='submit'
                     >Pay</Button>
-                    <Button  outline={true} label={'Cancel'} >Cancel </Button>
+                    <Button onClick={()=>setIsModalOpen(false)} outline={true} label={'Cancel'} >Cancel </Button>
                 </div>
             </form>
             {/* <button
