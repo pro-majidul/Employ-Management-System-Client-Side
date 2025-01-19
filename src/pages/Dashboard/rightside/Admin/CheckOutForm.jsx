@@ -1,12 +1,44 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { Button } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import useSecureAxios from '../../../../hooks/useSecureAxios';
+import './from.css'
+import useAuth from '../../../../hooks/UseAuth';
+import Swal from 'sweetalert2';
 
-const CheckOutForm = ({ paymentInfo, setIsModalOpen }) => {
+const CheckOutForm = ({ paymentInfo, refetch, setIsModalOpen }) => {
     const stripe = useStripe();
     const elements = useElements();
+    const axiosSecure = useSecureAxios()
+    const [clientSecret, setClientSecret] = useState('')
+    const [errors, setErrors] = useState('')
+    const [transaction, setTransaction] = useState('')
+    const { user } = useAuth()
+    // console.log(paymentInfo.salary)
+
+    useEffect(() => {
+        if (paymentInfo.salary > 0) {
+            // createPaymentIntent()
+            axiosSecure.post('/create-payment-intent', { price: paymentInfo.salary })
+                .then(res => {
+
+                    // console.log(res);
+                    setClientSecret(res?.data?.ClientSecret)
+                })
+
+
+
+        }
+    }, [paymentInfo.salary, axiosSecure])
+
+    // console.log(clientSecret)
+
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (!stripe || !elements) {
+            return
+        }
+
 
         const card = elements.getElement(CardElement);
 
@@ -19,10 +51,56 @@ const CheckOutForm = ({ paymentInfo, setIsModalOpen }) => {
             card,
         });
         if (error) {
-            console.log('[error]', error);
+            // console.log('error message is', error)
+            setErrors(error.message)
         } else {
-            console.log('[PaymentMethod]', paymentMethod);
+            console.log('paymentMethod is', paymentMethod)
+            setErrors('')
         }
+
+
+        const { paymentIntent, error: paymentError } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    name: user?.name || 'anonymous',
+                    email: user?.email || 'anonymous'
+                }
+            }
+        })
+
+        console.log(stripe)
+        if (paymentError) {
+            console.log('paymentError ', paymentError);
+        } else {
+            // console.log("paymentIntent", paymentIntent);
+            if (paymentIntent.status === 'succeeded') {
+                setTransaction(paymentIntent.id);
+                // now save tha payment info in database
+                const paymentdata = {
+                    transaction: paymentIntent?.id,
+                    date: new Date(),
+                    id: paymentInfo._id,
+                    salary: paymentInfo.salary
+                }
+                console.log(paymentdata);
+
+                const res = await axiosSecure.patch('/payrole', paymentdata);
+                console.log('payment users history,modifiedCount', res.data);
+                if (res.data.modifiedCount > 0) {
+                    refetch()
+                    setIsModalOpen(false)
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Thanks For Your Payment",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            }
+        }
+
     }
     return (
         <>
@@ -45,18 +123,13 @@ const CheckOutForm = ({ paymentInfo, setIsModalOpen }) => {
                 />
                 <div className='flex justify-around mt-2 gap-2'>
                     <Button className='bg-blue-500 hover:bg-blue-400 text-white'
-                        // disabled={!stripe || !clientSecret || processing}
-                        type='submit'
+                        disabled={!stripe || !clientSecret}
+                        htmlType="submit"
                     >Pay</Button>
-                    <Button onClick={()=>setIsModalOpen(false)} outline={true} label={'Cancel'} >Cancel </Button>
+                    <Button onClick={() => setIsModalOpen(false)} outline={true} label={'Cancel'} >Cancel </Button>
                 </div>
             </form>
-            {/* <button
-              onClick={setIsModalOpen(false)}  
-                className="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded mt-4"
-            >
-                Close
-            </button> */}
+
         </>
     );
 };

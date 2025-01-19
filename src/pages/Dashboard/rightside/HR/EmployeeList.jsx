@@ -34,7 +34,7 @@ const EmployeeList = () => {
     //     },
 
     // });
-
+console.log(employees)
     // Toggle verification status
     const toggleVerification = async ({ id, isVerified }) => {
         await secureAxios.patch(`/users/employees/${id}`, { isVerified });
