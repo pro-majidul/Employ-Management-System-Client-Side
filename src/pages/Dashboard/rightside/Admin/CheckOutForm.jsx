@@ -81,7 +81,8 @@ const CheckOutForm = ({ paymentInfo, refetch, setIsModalOpen }) => {
                     transaction: paymentIntent?.id,
                     date: new Date(),
                     id: paymentInfo._id,
-                    salary: paymentInfo.salary
+                    salary: paymentInfo.salary,
+                    isPayment: true,
                 }
                 console.log(paymentdata);
 
