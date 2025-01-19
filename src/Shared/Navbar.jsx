@@ -32,6 +32,12 @@ const Navbar = () => {
 
                         <div className="hidden md:block ">
                             <Link
+                                to='/'
+                                className='lg:px-4 lg:py-3 hover:text-gray-600 transition font-semibold'
+                            >
+                                Home
+                            </Link>
+                            <Link
                                 to='/dashboard'
                                 className='lg:px-4 lg:py-3 hover:text-gray-600 transition font-semibold'
                             >

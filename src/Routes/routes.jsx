@@ -12,6 +12,7 @@ import Progress from '../pages/Dashboard/rightside/HR/Progress';
 import EmployeDetails from '../pages/Dashboard/rightside/HR/EmployeDetails';
 import AllEmployee from '../pages/Dashboard/rightside/Admin/AllEmployee';
 import PayRole from '../pages/Dashboard/rightside/Admin/PayRole';
+import PaymentHistory from '../pages/Dashboard/rightside/Employee/PaymentHistory';
 
 
 
@@ -68,6 +69,10 @@ const routes = createBrowserRouter([
       {
         path : 'payroll',
         element : <PayRole></PayRole>
+      },
+      {
+        path : 'payment-history',
+        element : <PaymentHistory/>
       }
     ]
   }
