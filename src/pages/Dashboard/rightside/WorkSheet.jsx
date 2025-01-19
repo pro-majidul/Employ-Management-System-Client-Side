@@ -1,6 +1,6 @@
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useAuth from "../../../hooks/UseAuth";
 import useSecureAxios from "../../../hooks/useSecureAxios";
 import { toast } from "react-toastify";
@@ -8,10 +8,12 @@ import { PiSpinnerLight } from "react-icons/pi";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import { taskContext } from "../Dashboard";
 // import WorkSheet from './WorkSheet';
 const WorkSheet = () => {
   const { user, } = useAuth();
   const secureAxios = useSecureAxios()
+  const { workseetUpdate, setWorkseetUpdate } = useContext(taskContext)
   // const [tasks, setTasks] = useState([]);
 
   const { data: tasks = [], refetch, isLoading } = useQuery({
@@ -55,6 +57,7 @@ const WorkSheet = () => {
       console.log(res.data)
       if (res.data?.insertedId) {
         refetch()
+        setWorkseetUpdate(true)
         toast.success('Work Added Success')
       }
       // setTasks([newTask, ...tasks]);
@@ -68,7 +71,7 @@ const WorkSheet = () => {
     // setTasks([newTask, ...tasks]);
     setFormData({ task: 'Sales', hoursWorked: '', date: new Date() });
   };
-
+  console.log(workseetUpdate)
 
   // task edit button in table ,,, when click the table then which table data added in the hooks
   const handleEditTask = async (task) => {
@@ -80,6 +83,7 @@ const WorkSheet = () => {
     const res = await secureAxios.patch(`/work-sheet/${editingTask._id}`, editingTask)
     if (res.data.modifiedCount) {
       refetch()
+      setWorkseetUpdate(true)
       toast.success('task update success full')
     }
     setEditingTask('')
@@ -103,6 +107,7 @@ const WorkSheet = () => {
         const res = await secureAxios.delete(`/work-sheet/${id}`)
         if (res.data.deletedCount) {
           refetch()
+          setWorkseetUpdate(true)
           Swal.fire({
             title: "Deleted!",
             text: "Your task has been deleted.",
@@ -116,9 +121,9 @@ const WorkSheet = () => {
 
   return (
     <div className="space-y-5">
-       <Helmet>
-                <title>Employee Management || WorkSheet</title>
-            </Helmet>
+      <Helmet>
+        <title>Employee Management || WorkSheet</title>
+      </Helmet>
       {/* Input  */}
       <form
         onSubmit={handleAddTask}

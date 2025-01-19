@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import useSecureAxios from "../../../../hooks/useSecureAxios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { taskContext } from "../../Dashboard";
 
 const Progress = () => {
     const [selectedName, setSelectedName] = useState("");
@@ -10,9 +11,10 @@ const Progress = () => {
     const [allemails, setAllEmails] = useState([]);
     const [allmonths, setAllmonths] = useState([])
     const SecureAxios = useSecureAxios()
-
+    const { workseetUpdate, setWorkseetUpdate } = useContext(taskContext)
+    console.log({ workseetUpdate })
     const { data: tasks = [], refetch, isPending } = useQuery({
-        queryKey: ['employee-Task', selectedName, selectedMonth],
+        queryKey: ['employee-Task', selectedName, selectedMonth, workseetUpdate],
         queryFn: async () => {
             const res = await SecureAxios.get('/work-sheet', {
                 params: {
@@ -20,14 +22,22 @@ const Progress = () => {
                     month: selectedMonth || undefined,
                 },
             });
+            // if (workseetUpdate) { refetch() }
             return res.data;
         }
     });
+    console.log(tasks)
 
     useEffect(() => {
+        if (workseetUpdate) {
+            refetch()
+            // setWorkseetUpdate(false)
+        }
+
         const sumHours = tasks.reduce((sum, record) => sum + parseInt(record.hoursWorked, 10), 0);
         setTotalHours(sumHours);
-    }, [tasks]);
+
+    }, [tasks, workseetUpdate]);
 
 
     const getMonthYear = (date) => {
@@ -39,13 +49,14 @@ const Progress = () => {
 
     useEffect(() => {
 
-        if (allemails.length === 0) {
+        // if (allemails.length === 0) {
             const emails = Array.from(new Set(tasks.map((rec) => rec.name)));
             setAllEmails(emails)
             const month = Array.from(new Set(tasks.map((rec) => getMonthYear(rec.date))))
             setAllmonths(month)
-        }
-    }, [tasks])
+        // }
+        console.log(tasks.length , 'from useEffect 58')
+    }, [tasks.length,workseetUpdate])
     console.log(allemails)
     // console.log(tasks)
     // setAllEmails(emails);
@@ -64,7 +75,7 @@ const Progress = () => {
     }
     return (
         <div className="container mx-auto p-4">
-             <Helmet>
+            <Helmet>
                 <title>Employee Management || Progress</title>
             </Helmet>
             <h1 className="text-xl font-bold mb-4">Progress</h1>

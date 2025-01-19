@@ -26,7 +26,8 @@ const GoogleLogin = () => {
                 bankAccountNo: Math.floor(Math.random() * 9000000000) + 1000000000,
                 salary: Math.floor(Math.random() * 5000) + 5000,
                 designation: 'Employee',
-                image: result.user.photoURL
+                image: result.user.photoURL,
+                isVerified: true,
             }
 
             const res = await publicAxios.put('/users', userInfo);

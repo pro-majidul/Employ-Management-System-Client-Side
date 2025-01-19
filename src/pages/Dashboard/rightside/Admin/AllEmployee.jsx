@@ -193,7 +193,7 @@ const AllEmployee = () => {
                     </table>
                 </div>
             }
-            {view == 'card' && <AllEmployCardView employees={employees} handleMakeHR={handleMakeHR} handleFire={handleFire} handleUpdateSalary={handleUpdateSalary}></AllEmployCardView>}
+            {view == 'card' && <AllEmployCardView employees={employees} handleMakeHR={handleMakeHR} handleOpenSalaryModal={handleOpenSalaryModal} handleFire={handleFire} handleUpdateSalary={handleUpdateSalary}></AllEmployCardView>}
             <Modal
                 title="Update Salary"
                 open={isModalOpen}
