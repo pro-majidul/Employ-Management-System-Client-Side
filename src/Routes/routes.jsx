@@ -13,6 +13,9 @@ import EmployeDetails from '../pages/Dashboard/rightside/HR/EmployeDetails';
 import AllEmployee from '../pages/Dashboard/rightside/Admin/AllEmployee';
 import PayRole from '../pages/Dashboard/rightside/Admin/PayRole';
 import PaymentHistory from '../pages/Dashboard/rightside/Employee/PaymentHistory';
+import EmployeeRoutes from './EmployeeRoutes';
+import HrRoutes from './HrRoutes';
+import AdminRoutes from './AdminRoutes';
 
 
 
@@ -46,34 +49,35 @@ const routes = createBrowserRouter([
       // Employee
       {
         path: 'work-sheet',
-        element: <WorkSheet></WorkSheet>
+        element: <Private><EmployeeRoutes><WorkSheet></WorkSheet></EmployeeRoutes></Private>
+      },
+      {
+        path: 'payment-history',
+        element: <Private><EmployeeRoutes><PaymentHistory /></EmployeeRoutes></Private>
       },
       // HR
       {
         path: 'employee-list',
-        element: <EmployeeList></EmployeeList>
+        element: <Private><HrRoutes><EmployeeList></EmployeeList></HrRoutes></Private>
       },
       {
         path: 'progress',
-        element: <Progress></Progress>
+        element: <Private><HrRoutes><Progress></Progress></HrRoutes></Private>
       },
       {
         path: 'details/:email',
-        element: <EmployeDetails></EmployeDetails>
+        element: <Private><HrRoutes><EmployeDetails></EmployeDetails></HrRoutes></Private>
       },
       //Admin
       {
         path: 'all-employee-list',
-        element: <AllEmployee></AllEmployee>
+        element: <Private><AdminRoutes><AllEmployee></AllEmployee></AdminRoutes></Private>
       },
       {
-        path : 'payroll',
-        element : <PayRole></PayRole>
+        path: 'payroll',
+        element: <Private><AdminRoutes><PayRole></PayRole></AdminRoutes></Private>
       },
-      {
-        path : 'payment-history',
-        element : <PaymentHistory/>
-      }
+
     ]
   }
 
