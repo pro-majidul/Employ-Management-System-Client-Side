@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import useSecureAxios from '../../../../hooks/useSecureAxios';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { Form, Input, Modal } from 'antd';
+// import { loadStripe } from '@stripe/stripe-js';
+// import { Elements } from '@stripe/react-stripe-js';
+// import CheckOutForm from './CheckOutForm';
 
 const PayRole = () => {
     const SecureAxios = useSecureAxios();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [paymentInfo, setPaymentInfo] = useState('')
+// const stripePromise = loadStripe(import.meta.VITE_Publisher_key)
     // Pagination state
     const [pageIndex, setPageIndex] = useState(0); // Current page index
     const [pageSize, setPageSize] = useState(10); // Items per page
@@ -128,24 +130,6 @@ const PayRole = () => {
                     Next
                 </button>
             </div>
-
-            <Modal
-                title={`Total Salary ${paymentInfo.salary}`}
-                open={isModalOpen}
-                // onOk={handleUpdateSalary}
-                onCancel={() => setIsModalOpen(false)}
-                className="responsive-modal"
-            >
-                <Form>
-                    <Form.Item label="New Salary">
-                        <Input
-                            type="number"
-                            // value={newSalary}
-                            onChange={(e) => setNewSalary(e.target.value)}
-                        />
-                    </Form.Item>
-                </Form>
-            </Modal>
         </div>
     );
 };

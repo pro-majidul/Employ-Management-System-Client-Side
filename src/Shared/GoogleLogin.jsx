@@ -2,6 +2,7 @@ import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../hooks/UseAuth';
 import usePublicAxios from '../hooks/usePublicAxios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const GoogleLogin = () => {
@@ -10,7 +11,7 @@ const GoogleLogin = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const redirect = location?.state?.from || '/';
-    
+
     const handelGoogleLogin = async () => {
         setLoading(true)
         try {
@@ -21,10 +22,25 @@ const GoogleLogin = () => {
             const userInfo = {
                 name: result.user.displayName,
                 email: result.user.email,
-                role: 'Employee'
+                role: 'Employee',
+                bankAccountNo: Math.floor(Math.random() * 9000000000) + 1000000000,
+                salary: Math.floor(Math.random() * 5000) + 5000,
+                designation: 'Employee',
+                image: result.user.photoURL
             }
+
+            const res = await publicAxios.put('/users', userInfo);
+            console.log(res.data)
+            toast.success('user login SuccessFull')
         } catch (err) {
-            console.log(err);
+            // console.log(err.respose.data);
+            if (err.response.data.message) {
+                toast.success(` user login success ${err.response.data.message}`)
+            } else {
+
+                toast.error(`${err.code}`)
+            }
+            console.log('err is', err.response.data.message)
         } finally {
             setLoading(false)
         }
