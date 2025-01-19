@@ -8,6 +8,7 @@ import { RiVerifiedBadgeFill } from "react-icons/ri";
 import useSecureAxios from "../../../../hooks/useSecureAxios";
 import { toast } from "react-toastify";
 import useEmployeData from "../../../../hooks/useEmployeData";
+import { Helmet } from "react-helmet-async";
 
 const EmployeeList = () => {
     const [modalOpen, setModalOpen] = useState(false); // Modal state
@@ -151,6 +152,9 @@ const EmployeeList = () => {
 
     return (
         <div className="container mx-auto overflow-x-scroll p-4">
+             <Helmet>
+                <title>Employee Management || Employee List</title>
+            </Helmet>
             <h1 className="text-2xl font-bold mb-4 text-center">Employee List</h1>
             <table className="table-auto w-full border-collapse border border-gray-300">
                 <thead>

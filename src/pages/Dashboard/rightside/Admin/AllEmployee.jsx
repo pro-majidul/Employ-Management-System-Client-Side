@@ -10,6 +10,7 @@ import { GrStatusGood } from "react-icons/gr";
 import { toast } from "react-toastify";
 import UseEmployee from "../../../../hooks/UseEmployee";
 import AllEmployCardView from "./AllEmployCardView";
+import { Helmet } from "react-helmet-async";
 
 const AllEmployee = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -148,6 +149,9 @@ const AllEmployee = () => {
     console.log(view)
     return (
         <div className="container mx-auto p-4">
+             <Helmet>
+                <title>Employee Management || All Employee</title>
+            </Helmet>
             <h3 className="text-2xl font-bold mb-6 text-center">All Employee List</h3>
 
             <div className="w-32 mb-6">

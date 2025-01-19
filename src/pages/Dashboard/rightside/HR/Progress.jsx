@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useSecureAxios from "../../../../hooks/useSecureAxios";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const Progress = () => {
     const [selectedName, setSelectedName] = useState("");
@@ -63,6 +64,9 @@ const Progress = () => {
     }
     return (
         <div className="container mx-auto p-4">
+             <Helmet>
+                <title>Employee Management || Progress</title>
+            </Helmet>
             <h1 className="text-xl font-bold mb-4">Progress</h1>
 
             {/* Filters Section */}

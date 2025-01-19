@@ -1,4 +1,5 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { Button } from 'antd';
 import React from 'react';
 
 const CheckOutForm = ({ paymentInfo, setIsModalOpen }) => {
@@ -24,27 +25,39 @@ const CheckOutForm = ({ paymentInfo, setIsModalOpen }) => {
         }
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <CardElement
-                options={{
-                    style: {
-                        base: {
-                            fontSize: '16px',
-                            color: '#424770',
-                            '::placeholder': {
-                                color: '#aab7c4',
+        <>
+            <form onSubmit={handleSubmit}>
+                <CardElement
+                    options={{
+                        style: {
+                            base: {
+                                fontSize: '16px',
+                                color: '#424770',
+                                '::placeholder': {
+                                    color: '#aab7c4',
+                                },
+                            },
+                            invalid: {
+                                color: '#9e2146',
                             },
                         },
-                        invalid: {
-                            color: '#9e2146',
-                        },
-                    },
-                }}
-            />
-            <button setIsModalOpen={false} type="submit">
-                Pay
-            </button>
-        </form>
+                    }}
+                />
+                <div className='flex justify-around mt-2 gap-2'>
+                    <Button className='bg-blue-500 hover:bg-blue-400 text-white'
+                        // disabled={!stripe || !clientSecret || processing}
+                        type='submit'
+                    >Pay</Button>
+                    <Button  outline={true} label={'Cancel'} >Cancel </Button>
+                </div>
+            </form>
+            {/* <button
+              onClick={setIsModalOpen(false)}  
+                className="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded mt-4"
+            >
+                Close
+            </button> */}
+        </>
     );
 };
 

@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import { PiSpinnerLight } from "react-icons/pi";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
+// import WorkSheet from './WorkSheet';
 const WorkSheet = () => {
   const { user, } = useAuth();
   const secureAxios = useSecureAxios()
@@ -114,6 +116,9 @@ const WorkSheet = () => {
 
   return (
     <div className="space-y-5">
+       <Helmet>
+                <title>Employee Management || WorkSheet</title>
+            </Helmet>
       {/* Input  */}
       <form
         onSubmit={handleAddTask}

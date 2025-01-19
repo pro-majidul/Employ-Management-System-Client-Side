@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import useSecureAxios from "../../../../hooks/useSecureAxios";
 import { useQuery } from "@tanstack/react-query";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import { Helmet } from "react-helmet-async";
 
 const EmployeDetails = () => {
     const { email } = useParams(); 
@@ -26,6 +27,9 @@ const EmployeDetails = () => {
 
     return (
         <div className="min-h-screen bg-gray-100 p-4 sm:p-6">
+             <Helmet>
+                <title>Employee Management || Employee Details</title>
+            </Helmet>
             <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-4 sm:p-6">
                 {/* Employee Information */}
                 <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-6 sm:space-y-0 sm:space-x-8 mb-8">

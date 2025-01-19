@@ -6,6 +6,7 @@ import { Form, Input, Modal } from 'antd';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckOutForm from './CheckOutForm';
+import { Helmet } from 'react-helmet-async';
 const stripePromise = loadStripe(import.meta.env.VITE_Publisher_key)
 
 const PayRole = () => {
@@ -83,6 +84,9 @@ const PayRole = () => {
 
     return (
         <div className="p-4">
+             <Helmet>
+                <title>Employee Management || Pay-Role</title>
+            </Helmet>
             <h1 className="text-2xl font-bold mb-4">Employee Payment Requests</h1>
             <div className="overflow-x-auto mb-4">
                 <table className="table-auto w-full border-collapse border border-gray-300">
@@ -146,12 +150,7 @@ const PayRole = () => {
                         paymentInfo={paymentInfo}
                         />
                         </Elements>
-                        <button
-                            onClick={() => setIsModalOpen(false)}
-                            className="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded mt-4"
-                        >
-                            Close
-                        </button>
+                        
                     </div>
                 </div>
             )}
