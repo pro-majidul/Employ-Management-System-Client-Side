@@ -3,17 +3,18 @@ import React, { useState } from 'react';
 import useSecureAxios from '../../../../hooks/useSecureAxios';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { Form, Input, Modal } from 'antd';
-// import { loadStripe } from '@stripe/stripe-js';
-// import { Elements } from '@stripe/react-stripe-js';
-// import CheckOutForm from './CheckOutForm';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import CheckOutForm from './CheckOutForm';
+const stripePromise = loadStripe(import.meta.env.VITE_Publisher_key)
 
 const PayRole = () => {
     const SecureAxios = useSecureAxios();
-// const stripePromise = loadStripe(import.meta.VITE_Publisher_key)
     // Pagination state
     const [pageIndex, setPageIndex] = useState(0); // Current page index
     const [pageSize, setPageSize] = useState(10); // Items per page
-
+    const [modalOpen, setIsModalOpen] = useState(false)
+    const [paymentInfo, setPaymentInfo] = useState({})
     // Fetch payment data with pagination
     const { data: paymentData = { data: [], totalPages: 1 }, refetch } = useQuery({
         queryKey: ['payrole', pageIndex, pageSize],
@@ -130,6 +131,30 @@ const PayRole = () => {
                     Next
                 </button>
             </div>
+
+            {/* Payment Modal */}
+            {modalOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white mx-3 p-6 w-full md:max-w-md md:mx-auto rounded shadow-lg">
+                        <h2 className="text-xl font-bold">Pay Employee</h2>
+                        <p className="my-3 text-xl">
+                            Salary: <strong>{paymentInfo.salary}</strong>
+                        </p>
+                        <Elements stripe={stripePromise}>
+                        <CheckOutForm 
+                        setIsModalOpen={setIsModalOpen}
+                        paymentInfo={paymentInfo}
+                        />
+                        </Elements>
+                        <button
+                            onClick={() => setIsModalOpen(false)}
+                            className="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded mt-4"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

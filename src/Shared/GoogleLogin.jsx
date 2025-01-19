@@ -35,7 +35,7 @@ const GoogleLogin = () => {
         } catch (err) {
             // console.log(err.respose.data);
             if (err.response.data.message) {
-                toast.success(` user login success ${err.response.data.message}`)
+                toast.success(`${err.response.data.message}`)
             } else {
 
                 toast.error(`${err.code}`)
