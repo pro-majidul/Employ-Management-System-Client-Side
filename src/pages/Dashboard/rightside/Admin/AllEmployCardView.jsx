@@ -3,7 +3,6 @@ import { GrDocumentUpdate, GrStatusGood } from 'react-icons/gr';
 import { FaFire } from 'react-icons/fa';
 
 const AllEmployCardView = ({employees,handleOpenSalaryModal,handleFire,handleMakeHR}) => {
-    // const [employees, refetch] = UseEmployee()
     return (
         <div className="container mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

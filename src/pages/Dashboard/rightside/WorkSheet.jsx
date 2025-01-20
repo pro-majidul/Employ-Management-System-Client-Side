@@ -5,7 +5,7 @@ import useAuth from "../../../hooks/UseAuth";
 import useSecureAxios from "../../../hooks/useSecureAxios";
 import { toast } from "react-toastify";
 import { PiSpinnerLight } from "react-icons/pi";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import { taskContext } from "../Dashboard";
@@ -14,6 +14,7 @@ const WorkSheet = () => {
   const { user, } = useAuth();
   const secureAxios = useSecureAxios()
   const { workseetUpdate, setWorkseetUpdate } = useContext(taskContext)
+  const queryClient = useQueryClient()
   // const [tasks, setTasks] = useState([]);
 
   const { data: tasks = [], refetch, isLoading } = useQuery({
@@ -21,6 +22,7 @@ const WorkSheet = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await secureAxios.get(`/work-sheet/${user?.email}`);
+      // console.log(res.data)
       return res.data;
     },
   });
@@ -50,12 +52,13 @@ const WorkSheet = () => {
     if (!formData.hoursWorked) return toast.error('Please enter hours worked');
 
     const newTask = { ...formData, id: Date.now(), email: user?.email, name: user?.displayName };
-    console.log(newTask)
+    // console.log(newTask)
     try {
 
       const res = await secureAxios.post('/work-sheet', newTask)
-      console.log(res.data)
+      // console.log(res.data)
       if (res.data?.insertedId) {
+        queryClient.invalidateQueries({ queryKey: ['employee-Task'] })
         refetch()
         setWorkseetUpdate(true)
         toast.success('Work Added Success')
@@ -64,14 +67,14 @@ const WorkSheet = () => {
 
 
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       toast.error(`${err.message}`)
     }
 
     // setTasks([newTask, ...tasks]);
     setFormData({ task: 'Sales', hoursWorked: '', date: new Date() });
   };
-  console.log(workseetUpdate)
+  // console.log(workseetUpdate)
 
   // task edit button in table ,,, when click the table then which table data added in the hooks
   const handleEditTask = async (task) => {
@@ -92,7 +95,7 @@ const WorkSheet = () => {
 
   // task delete in table 
   const handleDeleteTask = (id) => {
-    console.log(id)
+    // console.log(id)
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to delete this!",

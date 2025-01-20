@@ -106,7 +106,7 @@ const AllEmployee = () => {
             accessorKey: 'makeHR',
             header: 'Make HR',
             cell: ({ row }) =>
-                row.original.role !== 'HR' && (
+                row.original.role !== 'HR' && row.original.role !== 'admin'&& (
                     <button
                         className=" px-2 py-2 rounded"
                         onClick={() => handleMakeHR(row.original._id)}

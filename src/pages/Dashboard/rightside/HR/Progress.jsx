@@ -8,11 +8,11 @@ const Progress = () => {
     const [selectedName, setSelectedName] = useState("");
     const [selectedMonth, setSelectedMonth] = useState("");
     const [totalHours, setTotalHours] = useState(0);
-    const [allemails, setAllEmails] = useState([]);
+    const [allNames, setAllNames] = useState([]);
     const [allmonths, setAllmonths] = useState([])
     const SecureAxios = useSecureAxios()
     const { workseetUpdate, setWorkseetUpdate } = useContext(taskContext)
-    console.log({ workseetUpdate })
+    // console.log({ workseetUpdate })
     const { data: tasks = [], refetch, isPending } = useQuery({
         queryKey: ['employee-Task', selectedName, selectedMonth, workseetUpdate],
         queryFn: async () => {
@@ -26,7 +26,7 @@ const Progress = () => {
             return res.data;
         }
     });
-    console.log(tasks)
+    // console.log(tasks)
 
     useEffect(() => {
         if (workseetUpdate) {
@@ -47,28 +47,42 @@ const Progress = () => {
         return `${month} ${year}`;
     };
 
+
+    // useEffect(() => {
+    //     if (allNames.length === 0) {
+    //         const names = Array.from(new Set(tasks.map((rec) => rec.name)));
+    //         setAllNames(names);
+
+    //     }
+    //     if (allmonths.length === 0) {
+    //         const months = Array.from(new Set(tasks.map((rec) => getMonthYear(rec.date))));
+    //         setAllmonths(months);
+    //     }
+    // }, [tasks,workseetUpdate]);
+
     useEffect(() => {
+        const SpecificNameMonth = async () => {
+            const res = await SecureAxios.get('/work-sheet')
+            // console.log('line nmbr',res.data)
+            const names = Array.from(new Set(res.data.map((rec) => rec.name)));
+                    setAllNames(names);
+                    const months = Array.from(new Set(res.data.map((rec) => getMonthYear(rec.date))));
+            setAllmonths(months);
+        }
 
-        // if (allemails.length === 0) {
-            const emails = Array.from(new Set(tasks.map((rec) => rec.name)));
-            setAllEmails(emails)
-            const month = Array.from(new Set(tasks.map((rec) => getMonthYear(rec.date))))
-            setAllmonths(month)
-        // }
-        console.log(tasks.length , 'from useEffect 58')
-    }, [tasks.length,workseetUpdate])
-    console.log(allemails)
-    // console.log(tasks)
-    // setAllEmails(emails);
-
+        return () => SpecificNameMonth()
+    }, [tasks,workseetUpdate])
 
 
 
 
 
-    const handelFilterEmail = (e) => {
+
+
+
+    const handelFilterName = (e) => {
         setSelectedName(e.target.value);
-        refetch()
+        // refetch()
     }
     if (isPending) {
         return <p> loading ...</p>
@@ -86,7 +100,7 @@ const Progress = () => {
                     <label className="block text-sm font-medium">Employee Name</label>
                     <select
                         defaultValue={selectedName}
-                        onChange={(e) => handelFilterEmail(e)}
+                        onChange={(e) => handelFilterName(e)}
                         className="border rounded p-2 w-full"
                     >
                         <option value="">All Employees</option>
@@ -95,7 +109,7 @@ const Progress = () => {
                                 {email}
                             </option>
                         ))} */}
-                        {allemails.map((email, index) => (
+                        {allNames.map((email, index) => (
                             <option key={index} value={email}>
                                 {email}
                             </option>
