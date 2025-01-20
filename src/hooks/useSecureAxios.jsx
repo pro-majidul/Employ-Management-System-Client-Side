@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "./UseAuth";
 
 const secureAxios = axios.create({
-    baseURL: 'https://b10a12-server-side-pro-majidul-h97ff9ouq.vercel.app',
+    baseURL: 'https://b10a12-server-side-pro-majidul.vercel.app',
 })
 const useSecureAxios = () => {
     // const { userLogout } = useUsers()

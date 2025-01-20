@@ -1,7 +1,4 @@
-
-
 import { FaBalanceScale, FaChalkboardTeacher, FaChartLine, FaMoneyBillAlt, FaRegClock, FaUserTie } from "react-icons/fa";
-
 
 const OurService = () => {
   
