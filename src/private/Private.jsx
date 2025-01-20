@@ -1,5 +1,6 @@
 import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/UseAuth";
+import Spineer from "../Shared/Spineer";
 
 // eslint-disable-next-line react/prop-types
 const Private = ({ children }) => {
@@ -11,9 +12,7 @@ const Private = ({ children }) => {
 
     console.log('loading', loading, 'user is', user)
     if (loading) {
-        return <div className="flex items-center justify-center min-h-screen">
-            <span className="loading-spinner"></span>
-        </div>
+        return <Spineer></Spineer>
     }
     if (user) {
         return children;

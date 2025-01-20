@@ -16,6 +16,7 @@ import PaymentHistory from '../pages/Dashboard/rightside/Employee/PaymentHistory
 import EmployeeRoutes from './EmployeeRoutes';
 import HrRoutes from './HrRoutes';
 import AdminRoutes from './AdminRoutes';
+import ManDashboard from '../pages/Dashboard/rightside/ManDashboard';
 
 
 
@@ -47,6 +48,10 @@ const routes = createBrowserRouter([
     element: <Private><Dashboard></Dashboard></Private>,
     children: [
       // Employee
+      {
+        path: '/dashboard',
+        element : <ManDashboard></ManDashboard>
+      },
       {
         path: 'work-sheet',
         element: <Private><EmployeeRoutes><WorkSheet></WorkSheet></EmployeeRoutes></Private>

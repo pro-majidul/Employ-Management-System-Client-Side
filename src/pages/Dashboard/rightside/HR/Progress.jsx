@@ -3,6 +3,7 @@ import useSecureAxios from "../../../../hooks/useSecureAxios";
 import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { taskContext } from "../../Dashboard";
+import Spineer from "../../../../Shared/Spineer";
 
 const Progress = () => {
     const [selectedName, setSelectedName] = useState("");
@@ -85,7 +86,7 @@ const Progress = () => {
         // refetch()
     }
     if (isPending) {
-        return <p> loading ...</p>
+        return <Spineer></Spineer>
     }
     return (
         <div className="container mx-auto p-4">

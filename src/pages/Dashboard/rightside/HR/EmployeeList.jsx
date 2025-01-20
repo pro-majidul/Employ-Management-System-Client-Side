@@ -9,6 +9,7 @@ import useSecureAxios from "../../../../hooks/useSecureAxios";
 import { toast } from "react-toastify";
 import useEmployeData from "../../../../hooks/useEmployeData";
 import { Helmet } from "react-helmet-async";
+import Spineer from "../../../../Shared/Spineer";
 
 const EmployeeList = () => {
     const [modalOpen, setModalOpen] = useState(false); // Modal state
@@ -135,11 +136,7 @@ console.log(employees)
     });
 
     if (isLoading) {
-        return (
-            <div className="flex items-center justify-center min-h-screen">
-                <span className="loading-spinner"></span>
-            </div>
-        );
+        return <Spineer></Spineer>
     }
 
     if (isError) {
