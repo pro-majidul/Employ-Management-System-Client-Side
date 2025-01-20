@@ -31,7 +31,7 @@ const Provider = ({ children }) => {
 
     const UserSignUp = async (email, password) => {
         setLoading(true);
-        console.log(email, password)
+        // console.log(email, password)
         return createUserWithEmailAndPassword(auth, email, password)
     }
 

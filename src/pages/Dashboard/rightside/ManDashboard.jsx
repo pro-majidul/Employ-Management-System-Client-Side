@@ -14,7 +14,7 @@ const ManDashboard = () => {
     const getInfo = async () => {
 
         const res = await publicAxios(`/users/${user.email}`);
-        console.log(res.data)
+        // console.log(res.data)
         setUserInfo(res.data)
 
     }

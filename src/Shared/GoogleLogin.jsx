@@ -16,7 +16,7 @@ const GoogleLogin = () => {
         setLoading(true)
         try {
             const result = await googleLogin()
-            console.log(result.user);
+            // console.log(result.user);
             setUser(result.user)
             navigate(redirect)
             const userInfo = {
@@ -31,11 +31,11 @@ const GoogleLogin = () => {
             }
 
             const res = await publicAxios.put('/users', userInfo);
-            console.log(res, 'line 34')
-            console.log(res.data)
+            // console.log(res, 'line 34')
+            // console.log(res.data)
             toast.success('user login SuccessFull')
         } catch (err) {
-            console.log(err);
+            // console.log(err);
             if (err.status === 404) {
                 logoutUser()
                 setUser(null)
@@ -44,7 +44,7 @@ const GoogleLogin = () => {
 
                 toast.error(`${err.code}`)
             }
-            console.log('err is', err.response.data.message)
+            // console.log('err is', err.response.data.message)
         } finally {
             setLoading(false)
         }

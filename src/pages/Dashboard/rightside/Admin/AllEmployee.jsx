@@ -35,7 +35,7 @@ const AllEmployee = () => {
             if (res.data.modifiedCount > 0) {
                 toast.success('This Employee Now HR')
             }
-            console.log(res)
+            // console.log(res)
             refetch();
         } catch (error) {
             console.error("Error promoting to HR:", error);
@@ -46,7 +46,7 @@ const AllEmployee = () => {
     const handleFire = async (id) => {
         try {
             const res = await secureAxios.patch(`/admin/fire/${id}`);
-            console.log(res.data)
+            // console.log(res.data)
             if (res.data.modifiedCount > 0) {
                 toast.success('user fired Successfull')
             }
@@ -70,7 +70,7 @@ const AllEmployee = () => {
                 return toast.error('can not decrease salary Only Increase')
             }
             const res = await secureAxios.patch(`/admin/update-salary/${selectedEmployee._id}`, { newSalary });
-            console.log(res.data)
+            // console.log(res.data)
             if (res.data.modifiedCount > 0) {
                 toast.success('Salary Update SuccessFull')
             }
@@ -146,7 +146,7 @@ const AllEmployee = () => {
         columns,
         getCoreRowModel: getCoreRowModel(),
     });
-    console.log(view)
+    // console.log(view)
     return (
         <div className="container mx-auto p-4">
              <Helmet>

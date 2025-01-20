@@ -54,7 +54,7 @@ const CheckOutForm = ({ paymentInfo, refetch, setIsModalOpen }) => {
             // console.log('error message is', error)
             setErrors(error.message)
         } else {
-            console.log('paymentMethod is', paymentMethod)
+            // console.log('paymentMethod is', paymentMethod)
             setErrors('')
         }
 
@@ -69,7 +69,7 @@ const CheckOutForm = ({ paymentInfo, refetch, setIsModalOpen }) => {
             }
         })
 
-        console.log(stripe)
+        // console.log(stripe)
         if (paymentError) {
             console.log('paymentError ', paymentError);
         } else {
@@ -84,10 +84,10 @@ const CheckOutForm = ({ paymentInfo, refetch, setIsModalOpen }) => {
                     salary: paymentInfo.salary,
                     isPayment: true,
                 }
-                console.log(paymentdata);
+                // console.log(paymentdata);
 
                 const res = await axiosSecure.patch('/payrole', paymentdata);
-                console.log('payment users history,modifiedCount', res.data);
+                // console.log('payment users history,modifiedCount', res.data);
                 if (res.data.modifiedCount > 0) {
                     refetch()
                     setIsModalOpen(false)

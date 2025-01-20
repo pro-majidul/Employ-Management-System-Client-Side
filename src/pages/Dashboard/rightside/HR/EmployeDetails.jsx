@@ -16,7 +16,7 @@ const EmployeDetails = () => {
             return res.data;
         },
     });
-    console.log(info)
+    // console.log(info)
 
     // Prepare Data for Bar Chart
     const chartData = info.months?.map((month, index) => ({

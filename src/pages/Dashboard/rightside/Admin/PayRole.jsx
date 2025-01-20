@@ -35,7 +35,7 @@ const PayRole = () => {
         // console.log(id)
     };
 
-    console.log(paymentData)
+    // console.log(paymentData)
 
     const columns = [
         {

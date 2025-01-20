@@ -35,7 +35,7 @@ const EmployeeList = () => {
     //     },
 
     // });
-console.log(employees)
+// console.log(employees)
     // Toggle verification status
     const toggleVerification = async ({ id, isVerified }) => {
         await secureAxios.patch(`/users/employees/${id}`, { isVerified });
@@ -54,14 +54,14 @@ console.log(employees)
                 salary,
                 name
             });
-            console.log(res.data)
+            // console.log(res.data)
             if (res.data.insertedId) {
                 refetch()
                 toast.success('payment Success')
                 setModalOpen(false)
             }
         } catch (err) {
-            console.log(err.response.data.message)
+            // console.log(err.response.data.message)
             toast.error(`${err.response.data.message}`)
             setModalOpen(false);
         }

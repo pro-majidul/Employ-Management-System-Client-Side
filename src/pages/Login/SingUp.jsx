@@ -17,7 +17,7 @@ const SingUp = () => {
     const navigate = useNavigate()
     const location = useLocation();
     const redirect = location?.state?.from || '/';
-    console.log('location is ', location, 'pathname is ', redirect)
+    // console.log('location is ', location, 'pathname is ', redirect)
 
 
     const { register, handleSubmit, formState: { errors }, } = useForm()
@@ -40,7 +40,7 @@ const SingUp = () => {
 
             const result = await UserSignUp(data?.email, data?.password);
             await userProfileUpdate(data?.name, photo);
-            console.log(result)
+            // console.log(result)
 
             const userInfo = {
                 name: data.name,
@@ -56,11 +56,11 @@ const SingUp = () => {
             setUser(result.user)
             navigate(redirect)
             toast.success('user Login success')
-            console.log(response)
+            // console.log(response)
 
 
         } catch (err) {
-            console.log(err)
+            // console.log(err)
             toast.error(`${err.message}`)
 
         }

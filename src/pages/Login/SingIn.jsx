@@ -16,11 +16,11 @@ const SingIn = () => {
 
     const redirect = location?.state?.from || '/';
     // console.log('location is ', location, 'pathname is ', redirect)
-    console.log(location.state)
+    // console.log(location.state)
     const handelLogin = async (e) => {
         e.preventDefault()
         const email = e.target.email.value;
-        console.log(email)
+        // console.log(email)
         const password = e.target.password.value;
         try {
             setLoading(true)
@@ -34,7 +34,7 @@ const SingIn = () => {
             }
             // navigate(location?.state?.from)
         } catch (err) {
-            console.log(err)
+            // console.log(err)
             if (err.status === 404) {
                 toast.error(`${err.response.data.message}`)
             } else {

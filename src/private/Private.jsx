@@ -10,7 +10,7 @@ const Private = ({ children }) => {
     const { user, loading } = useAuth();
     // console.log(loading)
 
-    console.log('loading', loading, 'user is', user)
+    // console.log('loading', loading, 'user is', user)
     if (loading) {
         return <Spineer></Spineer>
     }
