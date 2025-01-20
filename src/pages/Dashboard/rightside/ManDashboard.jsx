@@ -1,13 +1,28 @@
+import { useEffect, useState } from 'react';
 import useAuth from '../../../hooks/UseAuth';
-import { Calendar} from 'antd';
+import { Calendar } from 'antd';
+import usePublicAxios from '../../../hooks/usePublicAxios';
 const onPanelChange = (value, mode) => {
-  console.log(value.format('YYYY-MM-DD'), mode);
+    console.log(value.format('YYYY-MM-DD'), mode);
 };
 
-
-
 const ManDashboard = () => {
+    const [userInfo, setUserInfo] = useState({})
     const { user } = useAuth()
+    const publicAxios = usePublicAxios()
+
+    const getInfo = async () => {
+
+        const res = await publicAxios(`/users/${user.email}`);
+        console.log(res.data)
+        setUserInfo(res.data)
+
+    }
+
+    useEffect(() => {
+        getInfo()
+    }, [])
+
     return (
         <div className=" min-h-screen p-6">
             {/* Welcome Section */}
@@ -39,14 +54,15 @@ const ManDashboard = () => {
                         </p>
                     </div>
                     <div className="mt-6 text-gray-700">
+                        <p className="text-sm mt-2">
+                            <span className="font-semibold">Position:</span> {userInfo.role}
+                        </p>
                         <p className="text-sm">
-                            <span className="font-semibold">Department:</span> Marketing
+                            <span className="font-semibold">Department:</span> {userInfo.designation}
                         </p>
+
                         <p className="text-sm mt-2">
-                            <span className="font-semibold">Position:</span> Digital Marketing Specialist
-                        </p>
-                        <p className="text-sm mt-2">
-                            <span className="font-semibold">Phone Number:</span> +1 (555) 123-4567
+                            <span className="font-semibold">Bank Account:</span> {userInfo.bankAccountNo}
                         </p>
                         <p className="text-sm mt-2">
                             <span className="font-semibold">Email:</span> {user.email}
@@ -55,7 +71,7 @@ const ManDashboard = () => {
                 </div>
                 {/* Right Section: Calendar */}
                 <div className='shadow-md'>
-                <Calendar fullscreen={false} onPanelChange={onPanelChange} />
+                    <Calendar fullscreen={false} onPanelChange={onPanelChange} />
                 </div>
             </div>
         </div>

@@ -17,6 +17,7 @@ import EmployeeRoutes from './EmployeeRoutes';
 import HrRoutes from './HrRoutes';
 import AdminRoutes from './AdminRoutes';
 import ManDashboard from '../pages/Dashboard/rightside/ManDashboard';
+import ErrorPage from '../component/ErrorPage';
 
 
 
@@ -24,6 +25,7 @@ const routes = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: '/',
@@ -50,7 +52,7 @@ const routes = createBrowserRouter([
       // Employee
       {
         path: '/dashboard',
-        element : <ManDashboard></ManDashboard>
+        element: <ManDashboard></ManDashboard>
       },
       {
         path: 'work-sheet',
