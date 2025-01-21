@@ -40,6 +40,7 @@ const Contact = () => {
                     e.target.from_name.value = ''
                     e.target.from_email.value = ''
                     e.target.message.value = ''
+                    e.target.subject.value = ''
                 },
                 (error) => {
                     console.log('FAILED...', error);
