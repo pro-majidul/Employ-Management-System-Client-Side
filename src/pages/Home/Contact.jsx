@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FaClock, FaMailBulk, FaMapPin, FaPhone } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
+import { toast } from 'react-toastify';
 const Contact = () => {
 
     const today = new Date();
@@ -14,6 +15,37 @@ const Contact = () => {
 
 
     const sendEmail = (e) => {
+        e.preventDefault();
+
+
+        const fromName = e.target.from_name.value;
+        const fromEmail = e.target.from_email.value;
+        const message = e.target.message.value;
+
+        const info = { from_name: fromName, from_email: fromEmail, message }
+
+
+
+        emailjs
+            .send('service_ggwkmsr', 'template_ud9cxne', info,
+                'zTJh8Dk6Sk51W-Uy8',
+            )
+            .then(
+                () => {
+                    console.log('SUCCESS!');
+                    toast.success('Message Sent Successfully');
+
+
+
+                    e.target.from_name.value = ''
+                    e.target.from_email.value = ''
+                    e.target.message.value = ''
+                },
+                (error) => {
+                    console.log('FAILED...', error);
+                    toast.error(`${error}`);
+                }
+            );
     };
    
     return (
