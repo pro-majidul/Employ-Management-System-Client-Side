@@ -1,28 +1,21 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FaClock, FaMailBulk, FaMapPin, FaPhone } from 'react-icons/fa';
-
+import emailjs from '@emailjs/browser';
 const Contact = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
+
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
     });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({ ...prevState, [name]: value }));
-    };
 
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission here (e.g., send data to an API)
-        console.log('Form submitted:', formData);
-        // Reset form after submission
-        setFormData({ name: '', email: '', subject: '', message: '' });
+    const sendEmail = (e) => {
     };
+   
     return (
         <div
             style={{
@@ -32,7 +25,7 @@ const Contact = () => {
                 backgroundSize: 'cover'
             }}
         >
-             <Helmet>
+            <Helmet>
                 <title>Employee Management || Contact</title>
             </Helmet>
             <div className="max-w-7xl mx-auto w-full pt-10" >
@@ -50,35 +43,36 @@ const Contact = () => {
                                     <div className="space-y-3">
                                         <div className="flex hover:shadow-md bg-gray-200 px-4 rounded-xl py-4 items-center space-x-3 text-gray-700">
                                             <FaPhone size={25} />
-                                            <a className='text-lg'>+88 01746637704</a>
+                                            <a href="tel:+8801746637704" className='text-lg'>+88 01746637704</a>
                                         </div>
                                         <div className="flex hover:shadow-md bg-gray-200 px-4 rounded-xl py-4 items-center space-x-3 text-gray-700">
                                             <FaMailBulk size={25} />
-                                            <a className='text-lg'>majidul123tub@gmail.com</a>
+                                            <a target="_blank"
+                                                rel="noopener noreferrer"
+                                                href="https://mail.google.com/mail/?view=cm&fs=1&to=majidul123tub@gmail.com" className='text-lg'>majidul123tub@gmail.com</a>
                                         </div>
                                         <div className="flex hover:shadow-md bg-gray-200 px-4 rounded-xl py-4 items-center space-x-3 text-gray-700">
                                             <FaMapPin size={25} />
-                                            <a className='text-lg'>123 Business Ave, Suite 100, City, State 12345</a>
+                                            <a href="https://www.google.com/maps?q=123+Business+Ave,+Suite+100,+City,+State+12345" target="_blank" className='text-lg'>123 Business Ave, Suite 100, City, State 12345</a>
                                         </div>
                                         <div className="flex hover:shadow-md  bg-gray-200 px-4 rounded-xl py-4 items-center space-x-3 text-gray-700">
                                             <FaClock size={25} />
-                                            <a className='text-lg'>Monday - Friday: 9:00 AM - 5:00 PM</a>
+                                            <a className='text-lg'>{formattedDate}</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="bg-gray-300 shadow-lg rounded-lg overflow-hidden">
-                            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                            <form onSubmit={sendEmail} className="p-6 space-y-4">
                                 <h2 className="text-2xl font-semibold text-gray-900 mb-4">Send us a message</h2>
                                 <div>
                                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
                                     <input
                                         type="text"
                                         id="name"
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleChange}
+                                       name='from_name'
+                                       
                                         required
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="Your name"
@@ -89,9 +83,7 @@ const Contact = () => {
                                     <input
                                         type="email"
                                         id="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
+                                        name='from_email'
                                         required
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="your.email@example.com"
@@ -103,8 +95,6 @@ const Contact = () => {
                                         type="text"
                                         id="subject"
                                         name="subject"
-                                        value={formData.subject}
-                                        onChange={handleChange}
                                         required
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="How can we help?"
@@ -114,9 +104,7 @@ const Contact = () => {
                                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
                                     <textarea
                                         id="message"
-                                        name="message"
-                                        value={formData.message}
-                                        onChange={handleChange}
+                                       name='message'
                                         required
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="Your message here..."
