@@ -71,7 +71,7 @@ const Progress = () => {
             setAllmonths(months);
         }
 
-        return () => SpecificNameMonth()
+       SpecificNameMonth()
     }, [tasks,workseetUpdate])
 
 
