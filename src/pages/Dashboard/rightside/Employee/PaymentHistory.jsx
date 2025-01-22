@@ -17,7 +17,42 @@ const PaymentHistory = () => {
             return res.data;
         },
     });
-    console.log(historyData)
+    // console.log(historyData)
+    const monthToNumber = {
+        January: 1,
+        February: 2,
+        March: 3,
+        April: 4,
+        May: 5,
+        June: 6,
+        July: 7,
+        August: 8,
+        September: 9,
+        October: 10,
+        November: 11,
+        December: 12,
+    };
+
+    const sortdata = historyData?.result?.sort((a, b) => {
+        const yearA = parseInt(a.year);
+        const yearB = parseInt(b.year);
+        const monthA = monthToNumber[a.month];
+        const monthB = monthToNumber[b.month];
+
+        // Sort by year first
+        if (yearA !== yearB) {
+            return yearA - yearB;
+        }
+
+        // If years are the same, sort by month
+        if (monthA !== monthB) {
+            return monthA - monthB;
+        }
+
+        // If months are the same, sort by _id (or any other criteria if needed)
+        return a._id.localeCompare(b._id);
+    })
+    console.log(sortdata)
     return (
         <div className="p-4 max-w-4xl mx-auto">
             <h2 className="text-2xl font-bold text-center mb-6">Payment History</h2>
