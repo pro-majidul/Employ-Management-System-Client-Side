@@ -17,7 +17,7 @@ const PaymentHistory = () => {
             return res.data;
         },
     });
-
+    console.log(historyData)
     return (
         <div className="p-4 max-w-4xl mx-auto">
             <h2 className="text-2xl font-bold text-center mb-6">Payment History</h2>
@@ -64,9 +64,8 @@ const PaymentHistory = () => {
                     {/* Pagination */}
                     <div className="flex justify-between items-center mt-4">
                         <button
-                            className={`px-4 py-2 text-sm bg-blue-500 text-white rounded ${
-                                page === 1 ? 'opacity-50 cursor-not-allowed' : ''
-                            }`}
+                            className={`px-4 py-2 text-sm bg-blue-500 text-white rounded ${page === 1 ? 'opacity-50 cursor-not-allowed' : ''
+                                }`}
                             onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
                             disabled={page === 1}
                         >
@@ -76,9 +75,8 @@ const PaymentHistory = () => {
                             Page {page} of {totalPages}
                         </span>
                         <button
-                            className={`px-4 py-2 text-sm bg-blue-500 text-white rounded ${
-                                page === totalPages ? 'opacity-50 cursor-not-allowed' : ''
-                            }`}
+                            className={`px-4 py-2 text-sm bg-blue-500 text-white rounded ${page === totalPages ? 'opacity-50 cursor-not-allowed' : ''
+                                }`}
                             onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
                             disabled={page === totalPages}
                         >

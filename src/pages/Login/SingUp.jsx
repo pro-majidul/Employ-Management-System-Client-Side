@@ -53,6 +53,7 @@ const SingUp = () => {
             }
 
             const response = await publicAxios.post('/users', userInfo)
+            console.log(response.data)
             setUser(result.user)
             navigate(redirect)
             toast.success('user Login success')
