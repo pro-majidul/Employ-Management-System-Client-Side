@@ -18,6 +18,7 @@ import HrRoutes from './HrRoutes';
 import AdminRoutes from './AdminRoutes';
 import ManDashboard from '../pages/Dashboard/rightside/ManDashboard';
 import ErrorPage from '../component/ErrorPage';
+import AboutUs from '../pages/About/AboutUs';
 
 
 
@@ -42,6 +43,10 @@ const routes = createBrowserRouter([
       {
         path: '/signin',
         element: <SignIn></SignIn>
+      },
+      {
+        path :'/aboutus', 
+        element : <AboutUs></AboutUs>
       }
     ],
   },

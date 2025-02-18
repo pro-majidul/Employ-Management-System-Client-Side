@@ -49,6 +49,13 @@ const Navbar = () => {
                             >
                                 Contact Us
                             </Link>
+                            <Link
+                                to='/aboutus'
+                                className='lg:px-4 lg:py-3 ml-2 lg:ml-0 hover:text-gray-600 transition font-semibold'
+                            >
+                                About Us
+                            </Link>
+
                             {!user && <>
                                 <Link
                                     to='/signin'
@@ -68,7 +75,7 @@ const Navbar = () => {
                             {/* Dropdown Menu */}
                             <div className='relative'>
                                 <div className='flex flex-row items-center md:gap-3 gap-1'>
-                                    {/* Dropdown btn */}
+                                    {/* Dropdown btn  theme control */}
                                     <div onClick={() => setDarkMode(!darkMode)}>
                                         {darkMode ? <svg
                                             className=" md:h-10 md:w-10  h-5 w-5"
@@ -125,6 +132,13 @@ const Navbar = () => {
                                                     >
                                                         Contact Us
                                                     </Link>
+                                                    <Link
+                                                        to='/aboutus'
+                                                        className='lg:px-4 lg:py-3 ml-2 lg:ml-0 hover:text-gray-600 transition font-semibold'
+                                                    >
+                                                        About Us
+                                                    </Link>
+
                                                     <div
                                                         onClick={logoutUser}
                                                         className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
@@ -154,6 +168,13 @@ const Navbar = () => {
                                                         Contact Us
                                                     </Link>
                                                     <Link
+                                                        to='/aboutus'
+                                                        className='px-4 md:hidden py-3 hover:bg-neutral-100 transition font-semibold'
+                                                    >
+                                                        About Us
+                                                    </Link>
+
+                                                    <Link
                                                         to='/signin'
                                                         className='px-4 md:hidden py-3 hover:bg-neutral-100 transition font-semibold'
                                                     >
@@ -165,6 +186,7 @@ const Navbar = () => {
                                                     >
                                                         Sign Up
                                                     </Link>
+
                                                 </>
                                             )}
                                         </div>
