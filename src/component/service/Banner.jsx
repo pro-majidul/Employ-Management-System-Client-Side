@@ -12,7 +12,7 @@ const Banner = () => {
                         Monitor workload, manage salaries, track contracts, and ensure a seamless workflow for your team with our intuitive platform.
                     </p>
                     <a
-                        href="#"
+                        href="#home"
                         className="inline-block bg-white text-blue-600 font-semibold px-8 py-4 rounded-lg shadow-lg hover:bg-blue-50 transition duration-300"
                     >
                         Get Started
