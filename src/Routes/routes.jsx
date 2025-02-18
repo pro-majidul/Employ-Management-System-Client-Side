@@ -19,6 +19,7 @@ import AdminRoutes from './AdminRoutes';
 import ManDashboard from '../pages/Dashboard/rightside/ManDashboard';
 import ErrorPage from '../component/ErrorPage';
 import AboutUs from '../pages/About/AboutUs';
+import BlogPage from '../pages/Blogs/BlogPage';
 
 
 
@@ -47,6 +48,10 @@ const routes = createBrowserRouter([
       {
         path :'/aboutus', 
         element : <AboutUs></AboutUs>
+      },
+      {
+        path : '/blogpage', 
+        element : <BlogPage></BlogPage>
       }
     ],
   },

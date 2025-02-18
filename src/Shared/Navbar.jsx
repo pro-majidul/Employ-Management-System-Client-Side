@@ -37,12 +37,14 @@ const Navbar = () => {
                             >
                                 Home
                             </Link>
-                            <Link
+                            {
+                              user &&  <Link
                                 to='/dashboard'
                                 className='lg:px-4 lg:py-3 hover:text-gray-600 transition font-semibold'
                             >
                                 Dashboard
                             </Link>
+                            }
                             <Link
                                 to='/contactus'
                                 className='lg:px-4 lg:py-3 ml-2 lg:ml-0 hover:text-gray-600 transition font-semibold'
@@ -55,6 +57,14 @@ const Navbar = () => {
                             >
                                 About Us
                             </Link>
+                            {
+                                user &&  <Link
+                                to='/blogpage'
+                                className='lg:px-4 lg:py-3 ml-2 lg:ml-0 hover:text-gray-600 transition font-semibold'
+                            >
+                                Blogs
+                            </Link>
+                            }
 
                             {!user && <>
                                 <Link
@@ -70,6 +80,8 @@ const Navbar = () => {
                                     Sign Up
                                 </Link>
                             </>}
+                            
+                            
                         </div>
                         <div>
                             {/* Dropdown Menu */}
@@ -134,9 +146,15 @@ const Navbar = () => {
                                                     </Link>
                                                     <Link
                                                         to='/aboutus'
-                                                        className='lg:px-4 lg:py-3 ml-2 lg:ml-0 hover:text-gray-600 transition font-semibold'
+                                                         className='px-4 py-3 hover:bg-neutral-100 transition md:hidden font-semibold'
                                                     >
                                                         About Us
+                                                    </Link>
+                                                    <Link
+                                                        to='/blogpage'
+                                                         className='px-4 py-3 hover:bg-neutral-100 transition md:hidden font-semibold'
+                                                    >
+                                                        Blogs
                                                     </Link>
 
                                                     <div
@@ -172,6 +190,12 @@ const Navbar = () => {
                                                         className='px-4 md:hidden py-3 hover:bg-neutral-100 transition font-semibold'
                                                     >
                                                         About Us
+                                                    </Link>
+                                                    <Link
+                                                        to='/blogpage'
+                                                        className='px-4 md:hidden py-3 hover:bg-neutral-100 transition font-semibold'
+                                                    >
+                                                        Blogs
                                                     </Link>
 
                                                     <Link
