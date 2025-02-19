@@ -45,6 +45,14 @@ const Navbar = () => {
                                 Dashboard
                             </Link>
                             }
+                            {
+                              user &&  <Link
+                                to='/allemployee'
+                                className='lg:px-4 lg:py-3 hover:text-gray-600 transition font-semibold'
+                            >
+                                AllEmployee
+                            </Link>
+                            }
                             <Link
                                 to='/contactus'
                                 className='lg:px-4 lg:py-3 ml-2 lg:ml-0 hover:text-gray-600 transition font-semibold'
@@ -139,6 +147,12 @@ const Navbar = () => {
                                                         Dashboard
                                                     </Link>
                                                     <Link
+                                                        to='/allemployee'
+                                                        className='px-4 py-3 hover:bg-neutral-100 transition font-semibold md:hidden'
+                                                    >
+                                                        AllEmployee
+                                                    </Link>
+                                                    <Link
                                                         to='/contactus'
                                                         className='px-4 py-3 hover:bg-neutral-100 transition md:hidden font-semibold'
                                                     >
@@ -178,6 +192,12 @@ const Navbar = () => {
                                                         className='px-4 md:hidden py-3 hover:bg-neutral-100 transition font-semibold'
                                                     >
                                                         Dashboard
+                                                    </Link>
+                                                    <Link
+                                                        to='/allemployee'
+                                                        className='px-4 md:hidden py-3 hover:bg-neutral-100 transition font-semibold'
+                                                    >
+                                                        AllEmployee
                                                     </Link>
                                                     <Link
                                                         to='/contactus'

@@ -166,7 +166,7 @@ const SingUp = () => {
                                 Bank Account Number
                             </label>
                             <input
-                                type="text"
+                                type="number"
                                 id="bankAccountNo"
                                 name="bankAccountNo"
                                 {...register("bankAccountNo", { required: true })}
