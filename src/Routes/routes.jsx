@@ -20,6 +20,7 @@ import ManDashboard from '../pages/Dashboard/rightside/ManDashboard';
 import ErrorPage from '../component/ErrorPage';
 import AboutUs from '../pages/About/AboutUs';
 import BlogPage from '../pages/Blogs/BlogPage';
+import AllUsers from '../pages/allusers/AllUsers';
 
 
 
@@ -52,6 +53,10 @@ const routes = createBrowserRouter([
       {
         path : '/blogpage', 
         element : <BlogPage></BlogPage>
+      },
+      {
+        path :'/allemployee',
+        element : <AllUsers></AllUsers>
       }
     ],
   },
