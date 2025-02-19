@@ -1,6 +1,20 @@
 import React from "react";
 
 const AboutUs = () => {
+  const roles = [
+    {
+      role: "CEO",
+      image: "https://i.ibb.co.com/6XFDk6y/majidul.png",
+    },
+    {
+      role: "CTO",
+      image: "https://i.ibb.co.com/vDG0t8q/bg-image.png",
+    },
+    {
+      role: "HR Manager",
+      image: "https://i.ibb.co.com/vDG0t8q/bg-image.png",
+    },
+  ];
   return (
     <div className="max-w-7xl mx-auto p-6 space-y-10 pt-28">
       {/* Company Overview */}
@@ -51,14 +65,16 @@ const AboutUs = () => {
       <section>
         <h2 className="text-3xl font-bold text-blue-600 text-center">Meet Our Team</h2>
         <div className="grid md:grid-cols-3 gap-6 mt-6">
-          {["CEO", "CTO", "HR Manager"].map((role, index) => (
+        {roles.map((item, index) => (
             <div 
               key={index} 
               className="bg-white p-6 rounded-lg shadow-md text-center border-2 border-transparent hover:border-blue-500 transition-all duration-300 hover:shadow-lg"
             >
-              <div className="w-24 h-24 bg-gray-300 rounded-full mx-auto hover:bg-blue-400 transition duration-300"></div>
-              <h3 className="text-xl font-semibold mt-4">{role}</h3>
-              <p className="text-gray-600">Expert in managing {role.toLowerCase()} operations.</p>
+              <div className="w-24 h-24 bg-gray-300 rounded-full mx-auto hover:bg-blue-400 transition duration-300">
+                <img src={item.image} alt="" />
+              </div>
+              <h3 className="text-xl font-semibold mt-4">{item.role}</h3>
+              <p className="text-gray-600">Expert in managing {item.role.toLowerCase()} operations.</p>
             </div>
           ))}
         </div>

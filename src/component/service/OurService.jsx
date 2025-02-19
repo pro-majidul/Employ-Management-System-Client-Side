@@ -1,4 +1,5 @@
 import { FaBalanceScale, FaChalkboardTeacher, FaChartLine, FaMoneyBillAlt, FaRegClock, FaUserTie } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const OurService = () => {
   
@@ -53,6 +54,7 @@ const OurService = () => {
                                 </div>
                                 <h3 className="text-lg font-medium text-gray-900 mb-2">{service.title}</h3>
                                 <p className="text-base text-gray-500">{service.description}</p>
+                                <Link to='/aboutus' className="text-lg font-medium text-gray-900 mb-2">See More</Link>
                             </div>
                         </div>
                     ))}
